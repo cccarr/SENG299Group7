@@ -1,4 +1,1 @@
-# SENG299Group7
-
-
-
+# SENG299 Angular Tutorial
