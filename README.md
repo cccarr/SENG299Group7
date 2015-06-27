@@ -15,13 +15,13 @@ git checkout <existing_branch_name>
 
 ### MAKE SOME CHANGES TO A FILE CALLED "foo.txt"
 
-git add foo.txt
-git -m "Some commit message"
-git push origin <branch_name>
-git pull
-git merge master
-git checkout master
-git merge <branch_name>
+* git add foo.txt
+* git -m "Some commit message"
+* git push origin <branch_name>
+* git pull
+* git merge master
+* git checkout master
+* git merge \<branch_name\>
 
 
 
