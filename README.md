@@ -1,19 +1,19 @@
-! Working with git
+# Working with git
  
 
-!! GET THE REPO
+## GET THE REPO
 
 git clone https://github.com/cccarr/SENG299Group7.git
 
-!! GIT MERGING:
-!!! CHECKOUT A NEW BRANCH:
+## GIT MERGING:
+### CHECKOUT A NEW BRANCH:
 git checkout -b <branch_name>
 
-!!! OR CHECKOUT AN EXISTING BRANCH:
+### OR CHECKOUT AN EXISTING BRANCH:
 git checkout <existing_branch_name>
 
 
-!!! MAKE SOME CHANGES TO A FILE CALLED "foo.txt"
+### MAKE SOME CHANGES TO A FILE CALLED "foo.txt"
 
 git add foo.txt
 git -m "Some commit message"
