@@ -5,12 +5,16 @@
 
 git clone https://github.com/cccarr/SENG299Group7.git
 
+
 ## GIT MERGING:
 ### CHECKOUT A NEW BRANCH:
-git checkout -b <branch_name>
+
+git checkout -b \<branch_name\>
+
 
 ### OR CHECKOUT AN EXISTING BRANCH:
-git checkout <existing_branch_name>
+
+git checkout \<existing_branch_name\>
 
 
 ### MAKE SOME CHANGES TO A FILE CALLED "foo.txt"
