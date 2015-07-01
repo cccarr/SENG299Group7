@@ -2,7 +2,7 @@ var bodyParser = require('body-parser'); 	// get body-parser
 var User       = require('../models/user');
 var Reservation= require('../models/reservation');
 var jwt        = require('jsonwebtoken');
-var config     = require('../../config');
+var config     = require('../../config/config.js');
 
 // super secret for creating tokens
 var superSecret = config.secret;
@@ -26,9 +26,9 @@ module.exports = function(app, express) {
 		.post(function(req, res) {
 			
 			var user = new User();		// create a new instance of the User model
-			user.name = req.body.name;  // set the users name (comes from the request)
-			user.username = req.body.username;  // set the users username (comes from the request)
-			user.password = req.body.password;  // set the users password (comes from the request)
+			user.local.name = req.body.name;  // set the users name (comes from the request)
+			user.local.email = req.body.email;  // set the users username (comes from the request)
+			user.local.password = req.body.password;  // set the users password (comes from the request)
 
 			user.save(function(err) {
 				if (err) {

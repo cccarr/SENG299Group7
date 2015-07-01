@@ -7,8 +7,13 @@ var app        = express(); 				// define our app using express
 var bodyParser = require('body-parser'); 	// get body-parser
 var morgan     = require('morgan'); 		// used to see requests
 var mongoose   = require('mongoose');
-var config 	   = require('./config');
+var config 	   = require('./config/config.js');
 var path 	   = require('path');
+var passport = require('passport');
+var flash    = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var configDB = require('./config/database.js');
+var session      = require('express-session');
 
 // APP CONFIGURATION ==================
 // ====================================
@@ -24,11 +29,26 @@ app.use(function(req, res, next) {
 	next();
 });
 
+mongoose.connect(configDB.url); // connect to our database
+
+require('./config/passport.js')(passport); // pass passport for configuration
+
+// set up our express application
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
+
+app.set('view engine', 'ejs'); // set up ejs for templating
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+require('./public/app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 // log all requests to the console 
 app.use(morgan('dev'));
 
-// connect to our database (hosted on modulus.io)
-mongoose.connect(config.database); 
 
 // set static files location
 // used for requests that our frontend will make

@@ -12,6 +12,14 @@ angular.module('app.routes', ['ngRoute'])
 		controllerAs: 'main'
 	})
 
+ 
+
+	.when("/signup", {
+		templateUrl: 'app/views/signup.html',
+		controller: 'userSignupController',
+		controllerAs: 'user'
+	})
+
 	.when("/users", {
 		templateUrl: 'app/views/pages/users/all.html',
 		controller: 'userController',

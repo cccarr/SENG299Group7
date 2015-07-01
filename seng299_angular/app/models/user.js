@@ -7,24 +7,10 @@ var UserSchema   = new Schema({
 	name: String,
 	username: { type: String, required: true, index: { unique: true }},
 	password: { type: String, required: true, select: false }
+
 });
 
-// hash the password before the user is saved
-UserSchema.pre('save', function(next) {
-	var user = this;
 
-	// hash the password only if the password has been changed or user is new
-	if (!user.isModified('password')) return next();
-
-	// generate the hash
-	bcrypt.hash(user.password, null, null, function(err, hash) {
-		if (err) return next(err);
-
-		// change the password to the hashed version
-		user.password = hash;
-		next();
-	});
-});
 
 // method to compare a given password with the database hash
 UserSchema.methods.comparePassword = function(password) {
@@ -32,5 +18,55 @@ UserSchema.methods.comparePassword = function(password) {
 
 	return bcrypt.compareSync(password, user.password);
 };
+var userSchema = mongoose.Schema({
 
-module.exports = mongoose.model('User', UserSchema);
+    local            : {
+	name         : String,
+        email        : String,
+        password     : String,
+	birthday     : String
+    },
+    facebook         : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    },
+    twitter          : {
+        id           : String,
+        token        : String,
+        displayName  : String,
+        username     : String
+    },
+    google           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    }
+
+});
+
+// methods ======================
+// generating a hash
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+userSchema.pre('save', function(next) {
+	var user = this;
+
+	// hash the password only if the password has been changed or user is new
+	if (!user.isModified('local.password')) return next();
+		user.local.password = bcrypt.hashSync(user.local.password, bcrypt.genSaltSync(8), null);
+		next();
+	// generate the hash
+
+});
+
+
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
+module.exports = mongoose.model('User', userSchema);
