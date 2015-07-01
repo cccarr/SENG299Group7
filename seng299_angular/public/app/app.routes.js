@@ -28,8 +28,25 @@ angular.module('app.routes', ['ngRoute'])
 		templateUrl: 'app/views/pages/users/single.html',
 		controller: 'userEditController',
 		controllerAs: 'user'
-	});
+	})
 
+	.when("/reservations", {
+		templateUrl: 'app/views/pages/reservations/all.html',
+		controller: 'reservationController',
+		controllerAs: 'reservation'
+	})
+
+	.when("/reservations/create", {
+		templateUrl: 'app/views/pages/reservations/single.html',
+		controller: 'reservationCreateController',
+		controllerAs: 'reservation'
+	})
+	
+	.when("/reservations/:reservation_id", {
+		templateUrl: 'app/views/pages/reservations/single.html',
+		controller: 'reservationEditController',
+		controllerAs: 'reservation'
+	});
 	// Added to remove the # from URLs
 	$locationProvider.html5Mode(true);
 });

@@ -11,15 +11,7 @@ module.exports = function(app, express) {
 
 	var apiRouter = express.Router();
 
-
-	// test route to make sure everything is working 
-	// accessed at GET http://localhost:8080/api
-	apiRouter.get('/', function(req, res) {
-		res.json({ message: 'Welcome to the User API for Lab 7' });	
-	});
-
 	// on routes that end in /users
-	// ----------------------------------------------------
 	apiRouter.route('/users')
 
 		// create a user (accessed at POST http://localhost:8080/users)
@@ -110,21 +102,21 @@ module.exports = function(app, express) {
 		// create a reservation (accessed at POST http://localhost:8080/reservations)
 		.post(function(req, res) {
 			
-			var reservation = new Reservation();		// create a new instance of the Reservation model
-			reservation.name = req.body.name;  // set the reservations name (comes from the request)
-			reservation.reservationname = req.body.reservationname;  // set the reservations reservationname (comes from the request)
-			reservation.password = req.body.password;  // set the reservations password (comes from the request)
+			var reservation = new Reservation();	
+			reservation.booth_id = req.body.booth_id; 
+			reservation.user_id = req.body.user_id;
+			reservation.dt_start = req.body.dt_start;  
+			reservation.dt_booked = req.body.dt_booked;
+			reservation.dt_cancelled = req.body.dt_cancelled;
 
 			reservation.save(function(err) {
 				if (err) {
-					// duplicate entry
 					if (err.code == 11000) 
 						return res.json({ success: false, message: 'A reservation with that reservationname already exists. '});
 					else 
 						return res.send(err);
 				}
 
-				// return a message
 				res.json({ message: 'Reservation created!' });
 			});
 
@@ -162,9 +154,11 @@ module.exports = function(app, express) {
 				if (err) res.send(err);
 
 				// set the new reservation information if it exists in the request
-				if (req.body.name) reservation.name = req.body.name;
-				if (req.body.reservationname) reservation.reservationname = req.body.reservationname;
-				if (req.body.password) reservation.password = req.body.password;
+				if(req.body.booth_id) reservation.booth_id = req.body.booth_id; 
+				if(req.body.user_id) reservation.user_id = req.body.user_id;
+				if(req.body.dt_start) reservation.dt_start = req.body.dt_start;  
+				if(req.body.dt_booked) reservation.dt_booked = req.body.dt_booked;
+				if(req.body.dt_cancelled) reservation.dt_cancelled = req.body.dt_cancelled;
 
 				// save the reservation
 				reservation.save(function(err) {
