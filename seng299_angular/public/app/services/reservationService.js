@@ -17,8 +17,8 @@ angular.module('reservationService', [])
 		return $http.get('/api/reservations/');
 	};
 
-	reservationFactory.edit = function(id) {
-		return $http.put('/api/reservations/' + id);
+	reservationFactory.edit = function(id, reservationData) {
+		return $http.put('/api/reservations/' + id, reservationData);
 	};
 	
 	reservationFactory.delete = function(id) {
@@ -27,7 +27,7 @@ angular.module('reservationService', [])
 	reservationFactory.create = function(reservationData){
 		// since this is a post method we need to include reservationData
 		// from our form
-		return $http.post('/api/reservations', userData)	
+		return $http.post('/api/reservations', reservationData)	
 	};
 	
 	return reservationFactory;

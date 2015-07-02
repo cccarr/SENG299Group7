@@ -6,6 +6,7 @@ main 					{
 ===================== */
 header .navbar 		{ 
 	border-radius:0;
+	background-color: green;
 }
 
 /* NGANIMATE
@@ -16,6 +17,10 @@ header .navbar 		{
 	-webkit-animation:zoomIn 0.3s both ease;
 	-moz-animation:zoomIn 0.3s both ease;
 	animation:zoomIn 0.3s both ease;
+}
+img.companylogo	{
+width:60px;
+margin-right: 10px;
 }
 
 /* ANIMATIONS
