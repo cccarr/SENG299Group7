@@ -58,7 +58,7 @@ userSchema.pre('save', function(next) {
 
 	// hash the password only if the password has been changed or user is new
 	if (!user.isModified('local.password')) return next();
-		user.local.password = bcrypt.hashSync(user.local.password, bcrypt.genSaltSync(8), null);
+		//user.local.password = bcrypt.hashSync(user.local.password, bcrypt.genSaltSync(8), null);
 		next();
 	// generate the hash
 
@@ -67,6 +67,7 @@ userSchema.pre('save', function(next) {
 
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+	
+	return bcrypt.compareSync(password, this.local.password);
 };
 module.exports = mongoose.model('User', userSchema);
