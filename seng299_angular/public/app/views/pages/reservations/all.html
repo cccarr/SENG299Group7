@@ -1,0 +1,37 @@
+<div class="page-header">
+	<h1>
+		Reservations 
+		<a href="/reservations/create" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus"></span> 
+			New Reservation
+		</a>
+	</h1>
+
+</div>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>_id</th>
+			<th>Booth</th>
+			<th>User</th>
+			<th>Date Start</th>
+			<th class="col-sm-2"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="booking in reservation.reservations">
+			<td>{{ booking._id }}</td>
+			<td>{{ booking.booth_title }}</td>
+			<td>{{ booking.user_id }}</td>
+			<td>{{ booking.dt_start }}</td>
+			<td class="col-sm-2">
+				<a href="#" ng-click="reservation.deleteReservation(booking._id)" class="btn btn-primary">Delete</a>
+			</td>
+			<td class="col-sm-2">
+				<a href="/reservations/{{booking._id}}" class="btn btn-primary">Edit</a>
+			</td>
+
+		</tr>
+	</tbody>
+</table>
