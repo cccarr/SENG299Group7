@@ -4,6 +4,8 @@
   "description": "Lab 7 Exercise",
   "main": "server.js",
   "dependencies": {
+    "angular-moment": "^0.10.1",
+    "angular-momentjs": "^0.1.9",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.9.3",
     "express": "~4.10.3",

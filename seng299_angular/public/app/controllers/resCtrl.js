@@ -1,21 +1,21 @@
 angular.module('resCtrl', [])
-.controller('reservationController', function(Reservation) {
-
+.controller('reservationController', function(Reservation,Booth) {
+		
 		var vm = this;
-
 		// set a processing variable to show loading things
 		vm.processing = true;
 
 		// grab all the reservations at page load
 		Reservation.all()
-		.success(function(data) {
-
-				// when all the reservations come back, remove the processing variable
+			.success(function(data) {
 				vm.processing = false;
-
-				// bind the reservations that come back to vm.reservations
+				var booth;
 				vm.reservations = data;
-				});
+				angular.forEach(vm.reservations, function(item){
+					booth = Booth.get(item.booth_id);
+					item.booth_title = booth.booth_title;
+				 })
+			});
 
 		vm.deleteReservation = function(id) {
 		vm.processing = true;
@@ -36,7 +36,7 @@ angular.module('resCtrl', [])
 		};
 })
 
-.controller('reservationCreateController', function(Reservation) {
+.controller('reservationCreateController', function(Reservation,moment) {
 
 		var vm = this;
 
@@ -48,7 +48,9 @@ angular.module('resCtrl', [])
 		vm.saveReservation = function() {
 		vm.processing = true;
 		vm.message = '';
-
+		var now= moment();
+		vm.reservationData.dt_booked=now;
+		
 		// use the create function in the reservationService
 		Reservation.create(vm.reservationData)
 		.success(function(data) {
@@ -60,28 +62,35 @@ angular.module('resCtrl', [])
 
 })	
 
-.controller('reservationEditController', function(Reservation,$routeParams) {
+.controller('reservationEditController', function(Reservation,Booth,$routeParams,moment) {
 
 		var vm = this;
-
+		
 		// variable to hide/show elements of the view
 		// differentiates between create or edit pages
 		vm.type = 'edit';
+
 
 		Reservation.get($routeParams.reservation_id)
 		.success(function(data) {
 				vm.reservationData = data;
 				});
 
-		vm.saveReservation = function() {
-		vm.processing = true;
-		vm.message = '';
+		Booth.all()
+		.success(function(data) {
+				vm.booths = data;
+				});
 
-		Reservation.edit($routeParams.reservation_id,vm.reservationData)
-			.success(function(data) {
-				vm.processing = false;
-				vm.reservationData = data;
-				vm.message = data.message;
-			});
+		vm.saveReservation = function() {
+			vm.processing = true;
+			vm.message = '';
+			var now= moment();
+			vm.reservationData.dt_booked=now;
+			Reservation.edit($routeParams.reservation_id,vm.reservationData)
+				.success(function(data) {
+					vm.processing = false;
+					vm.reservationData = data;
+					vm.message = data.message;
+				});
 	}
 });
