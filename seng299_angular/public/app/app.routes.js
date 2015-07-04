@@ -12,6 +12,9 @@ angular.module('app.routes', ['ngRoute'])
 		controllerAs: 'main'
 	})
 
+ 
+
+
 	.when("/users", {
 		templateUrl: 'app/views/pages/users/all.html',
 		controller: 'userController',

@@ -7,7 +7,7 @@ var app        = express(); 				// define our app using express
 var bodyParser = require('body-parser'); 	// get body-parser
 var morgan     = require('morgan'); 		// used to see requests
 var mongoose   = require('mongoose');
-var config 	   = require('./config');
+var config 	   = require('./config/config.js');
 var path 	   = require('path');
 
 // APP CONFIGURATION ==================
@@ -24,11 +24,12 @@ app.use(function(req, res, next) {
 	next();
 });
 
+mongoose.connect(config.database); // connect to our database
+
+
 // log all requests to the console 
 app.use(morgan('dev'));
 
-// connect to our database (hosted on modulus.io)
-mongoose.connect(config.database); 
 
 // set static files location
 // used for requests that our frontend will make
