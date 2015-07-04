@@ -69,11 +69,22 @@ angular.module('userCtrl', ['userService'])
 	// differentiates between create or edit pages
 	vm.type = 'edit';
 
+	vm.getUser = function(user_id) {
+		User.get(user_id)
+		.success(function(data) {
+			vm.userData = data;
+		});
+	}
+
 	User.get($routeParams.user_id)
 		.success(function(data) {
 			vm.userData = data;
 		});
 	
+	
+
+	
+
 	vm.saveUser = function() {
 		vm.processing = true;
 		vm.message = '';

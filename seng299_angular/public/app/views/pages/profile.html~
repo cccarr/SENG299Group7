@@ -1,6 +1,7 @@
-<div class="page-header">
-	<h1 ng-if="user.type == 'create'">Create User</h1>
-	<h1 ng-if="user.type == 'edit'" >Welcome, {{ user.userData.name }} </h1>
+
+
+<div class="page-header" ng-init="user.getUser(main.user.id)">
+	<h1 ng-if="user.type == 'edit'" >Welcome, {{ main.user.username }} </h1>
 </div>
 
 <form class="form-horizontal" ng-submit="user.saveUser()">
@@ -29,10 +30,23 @@
 			<input type="password" class="form-control" ng-model="user.userData.password">
 		</div>
 	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Email</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="user.userData.email">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Phone number</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="user.userData.phone">
+		</div>
+	</div>
 	
 	<div class="form-group">
 	<div class="col-sm-offset-2 col-sm-6">
-		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'create'">Create User</button>
 		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'edit'">Update Profile</button>
 	</div>
 	</div>
@@ -42,7 +56,7 @@
 	<h3> Your stats: </h3>
 	<p>
 	
-	Time until ban ends:	{{user.userData.dt_ban_end}} 
+	Time until ban ends:	{{main.user.dt_ban_end}} 
 	
 
 	</p>
@@ -50,18 +64,17 @@
 
 	<h3> Reservations </h3>
 
-	<table class="table table-bordered table-striped">
+	<table class="table table-bordered table-striped" <!--ng-controller="reservationController as res"-->>
 	<thead>
 		<tr>
 		
 			<th>Booth</th>
-			<th>User</th>
 			<th>Date Start</th>
 			
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="booking in reservation.reservations">
+		<tr ng-repeat="booking in reservations.reservations">
 	
 			<td>{{ booking.booth_title }}</td>
 			<td>{{ booking.user_id }}</td>
