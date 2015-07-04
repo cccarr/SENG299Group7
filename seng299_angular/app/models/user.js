@@ -8,7 +8,7 @@ var UserSchema   = new Schema({
 	last_name: String,
 	phone: String,
 	email: String,
-	username: { type: String, required: true, index: { unique: true }},
+	username: String,
 	password: { type: String, required: true, select: false },
 	description: String,
 	dt_ban_end: String,

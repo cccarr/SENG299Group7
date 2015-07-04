@@ -9,11 +9,6 @@ var morgan     = require('morgan'); 		// used to see requests
 var mongoose   = require('mongoose');
 var config 	   = require('./config/config.js');
 var path 	   = require('path');
-var passport = require('passport');
-var flash    = require('connect-flash');
-var cookieParser = require('cookie-parser');
-var configDB = require('./config/database.js');
-var session      = require('express-session');
 
 // APP CONFIGURATION ==================
 // ====================================
@@ -29,10 +24,9 @@ app.use(function(req, res, next) {
 	next();
 });
 
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect(config.database); // connect to our database
 
 
-require('./public/app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 // log all requests to the console 
 app.use(morgan('dev'));
 
