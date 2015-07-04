@@ -7,18 +7,13 @@ angular.module('app.routes', ['ngRoute'])
 
 	// Route for home page
 	.when("/", {
-		templateUrl: 'app/views/pages/home.html',
+		templateUrl: 'app/views/pages/welcome/login.html',
 		controller: 'mainController',
 		controllerAs: 'main'
 	})
 
  
 
-	.when("/signup", {
-		templateUrl: 'app/views/signup.html',
-		controller: 'userSignupController',
-		controllerAs: 'user'
-	})
 
 	.when("/users", {
 		templateUrl: 'app/views/pages/users/all.html',
