@@ -5,13 +5,17 @@ angular.module('app.routes', ['ngRoute'])
 
 	$routeProvider
 
-	// Route for home page
-	.when("/", {
-		templateUrl: 'app/views/pages/home.html',
-		controller: 'mainController',
-		controllerAs: 'main'
+// route for the home page
+	.when('/', {
+		templateUrl : 'app/views/pages/home.html'
 	})
 
+	// login page
+	.when('/login', {
+		templateUrl : 'app/views/pages/login.html',
+		controller  : 'mainController',
+		controllerAs: 'login'
+	})
  
 
 
