@@ -10,6 +10,74 @@ var superSecret = config.secret;
 module.exports = function(app, express) {
 
 	var apiRouter = express.Router();
+	
+	// route to authenticate a user (POST http://localhost:8080/api/authenticate)
+
+	apiRouter.post('/authenticate', function(req, res) {
+		console.log(req.body.username);
+
+		//find the user
+		//select the password explicitly
+		User.findOne({username: req.body.username}).select('password').exec(function(err, user){
+
+			if (err)
+			{
+				throw err;
+			}
+
+			//no user with that username was found
+			if (!user) {
+				res.json({
+					successs: false,
+					message: 'Authentication failed. User not found'
+				});
+			} else {
+			
+				//if user is found and password is correct create a token
+				var token = jwt.sign(user, superSecret, {
+					expiresInMinutes: 1440 //24 hour expiry
+				});
+				
+				//return info including token as JSON
+				res.json({
+					success: true,
+					message: 'Token Created',
+					token: token
+				});
+			}
+		});
+	});
+
+	//route middleware to verify token
+	apiRouter.use(function(req, res, next) {
+		console.log('User Logged In');
+
+		//check header or url parameters or post parameters for token
+		var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+
+		//decode token
+		if (token) {
+
+			//verify secret and check exp
+			jwt.verify(token, superSecret, function(err, decoded) {
+				if (err) {
+					return res.json({ success: false, message: 'Failed to authenticate token.' });
+				} else {
+					//if good save request in other routes
+					req.decoded = decoded;
+
+					next(); //go to next route
+				}
+			});
+
+		} else {
+			//if no token retrun 403 error
+			return res.status(403).send({
+				success: false,
+				message: 'No token provided.'
+			});
+		}
+	});
 
 	// on routes that end in /users
 	apiRouter.route('/users')
