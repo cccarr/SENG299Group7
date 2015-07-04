@@ -53,12 +53,12 @@ module.exports = function(app, express) {
 		console.log('User Logged In');
 
 		//check header or url parameters or post parameters for token
-		var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+		var token = req.body.token || req.param.token || req.headers['x-access-token'];
 
 		//decode token
 		if (token) {
 
-			//verify secret and check exp
+		//verify secret and check exp
 			jwt.verify(token, superSecret, function(err, decoded) {
 				if (err) {
 					return res.json({ success: false, message: 'Failed to authenticate token.' });
@@ -77,6 +77,8 @@ module.exports = function(app, express) {
 				message: 'No token provided.'
 			});
 		}
+	
+
 	});
 
 	// on routes that end in /users
