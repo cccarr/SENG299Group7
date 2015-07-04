@@ -11,6 +11,12 @@ angular.module('app.routes', ['ngRoute'])
 		controller: 'mainController',
 		controllerAs: 'main'
 	})
+	
+	.when('/login', {
+		templateUrl : 'app/views/pages/login.html',
+   		controller  : 'mainController',
+    		controllerAs: 'login'
+	})
 
 	.when("/users", {
 		templateUrl: 'app/views/pages/users/all.html',

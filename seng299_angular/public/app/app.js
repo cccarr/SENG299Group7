@@ -1,2 +1,9 @@
-angular.module('userApp', ['app.routes','mainCtrl','userService','userCtrl','resCtrl','reservationService'])
+angular.module('userApp', ['app.routes', 'authService','mainCtrl','userService','userCtrl','resCtrl','reservationService'])
 
+// application configuration to integrate token into requests
+.config(function($httpProvider) {
+
+	// attach our auth interceptor to the http requests
+	$httpProvider.interceptors.push('AuthInterceptor');
+
+});

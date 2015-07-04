@@ -1,15 +1,30 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
-var bcrypt 		 = require('bcrypt-nodejs');
+var bcrypt 	 = require('bcrypt-nodejs');
 
 // user schema 
 var UserSchema   = new Schema({
-	name: String,
-	username: { type: String, required: true, index: { unique: true }},
-	password: { type: String, required: true, select: false }
+	first_name: String,
+	last_name: String,
+	phone: String,
+	email: String,
+	username: String,
+	password: { type: String, required: true, select: false },
+	description: String,
+	dt_ban_end: String,
+	security_question: String,
+	security_answer: String	
+
 });
 
-// hash the password before the user is saved
+
+// methods ======================
+// generating a hash
+UserSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+
 UserSchema.pre('save', function(next) {
 	var user = this;
 
@@ -31,6 +46,13 @@ UserSchema.methods.comparePassword = function(password) {
 	var user = this;
 
 	return bcrypt.compareSync(password, user.password);
+};
+
+
+// checking if password is valid
+UserSchema.methods.validPassword = function(password) {
+	
+	return bcrypt.compareSync(password, this.local.password);
 };
 
 module.exports = mongoose.model('User', UserSchema);
