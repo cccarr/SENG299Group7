@@ -12,7 +12,8 @@ var UserSchema   = new Schema({
 	description: String,
 	dt_ban_end: String,
 	security_question: String,
-	security_answer: String	
+	security_answer: String,
+	isAdmin: Boolean	
 
 });
 

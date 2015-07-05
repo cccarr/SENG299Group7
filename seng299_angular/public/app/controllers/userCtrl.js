@@ -49,7 +49,6 @@ angular.module('userCtrl', ['userService'])
 	vm.saveUser = function() {
 		vm.processing = true;
 		vm.message = '';
-
 		// use the create function in the userService
 		User.create(vm.userData)
 			.success(function(data) {

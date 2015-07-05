@@ -47,10 +47,10 @@ angular.module('app.routes', ['ngRoute'])
 	})
 
 	.when("/profile", {
-        templateUrl: 'app/views/pages/profile.html',
-        controller: 'userEditController',
-        controllerAs: 'user'
-    })
+		templateUrl: 'app/views/pages/profile.html',
+		controller: 'userEditController',
+		controllerAs: 'user'
+	})
 
 	.when("/reservations", {
 		templateUrl: 'app/views/pages/reservations/all.html',

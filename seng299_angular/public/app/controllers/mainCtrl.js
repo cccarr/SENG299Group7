@@ -17,6 +17,10 @@ angular.module('mainCtrl', [])
 				vm.user = data.data;
 			});	
 	});	
+	Auth.getUser()
+		.then(function(data) {
+			vm.user = data.data;
+		});	
 
 	// function to handle login form
 	vm.doLogin = function() {
