@@ -17,6 +17,10 @@ angular.module('mainCtrl', [])
 				vm.user = data.data;
 			});	
 	});	
+	Auth.getUser()
+		.then(function(data) {
+			vm.user = data.data;
+		});	
 
 	// function to handle login form
 	vm.doLogin = function() {
@@ -31,7 +35,7 @@ angular.module('mainCtrl', [])
 
 				// if a user successfully logs in, redirect to home
 				if (data.success)			
-					$location.path('/profile');
+					$location.path('/');
 				else 
 					vm.error = data.message;
 				

@@ -14,7 +14,8 @@
 
 	<div ng-if="main.loggedIn">
 		<p>Manage your reservations.</p>
-		<a href="/reservations" class="btn btn-primary">View Reservations</a>
+		<a ng-if="main.user.isAdmin" href="/users" class="btn btn-primary">Manage users</a>
+		<a href="/reservations" class="btn btn-primary">Manage Reservations</a>
 		<a href="/reservations/create" class="btn btn-primary">Make a Reservation</a>
 		<a href="/profile" class="btn btn-primary">View Profile</a>
 	</div>
