@@ -12,16 +12,6 @@ angular.module('app.routes', ['ngRoute'])
 		controllerAs: 'main'
 	})
 
-	.when("/about", {
-		templateUrl: 'app/views/pages/about.html'
- 	})
-	
-	.when('/login', {
-		templateUrl : 'app/views/pages/login.html',
-   		controller  : 'mainController',
-    		controllerAs: 'login'
-	})
-
 	.when("/users", {
 		templateUrl: 'app/views/pages/users/all.html',
 		controller: 'userController',
@@ -40,18 +30,6 @@ angular.module('app.routes', ['ngRoute'])
 		controllerAs: 'user'
 	})
 
-	.when("/signup", {
-		templateUrl: 'app/views/pages/signup.html',
-		controller: 'userCreateController',
-		controllerAs: 'user'
-	})
-
-	.when("/profile", {
-        templateUrl: 'app/views/pages/profile.html',
-        controller: 'userEditController',
-        controllerAs: 'user'
-    })
-
 	.when("/reservations", {
 		templateUrl: 'app/views/pages/reservations/all.html',
 		controller: 'reservationController',
@@ -64,6 +42,13 @@ angular.module('app.routes', ['ngRoute'])
 		controllerAs: 'reservation'
 	})
 	
+	.when("/profile", {
+                templateUrl: 'app/views/pages/profile.html',
+                controller: 'userEditController',
+                controllerAs: 'user'
+        })
+
+
 	.when("/reservations/:reservation_id", {
 		templateUrl: 'app/views/pages/reservations/single.html',
 		controller: 'reservationEditController',

@@ -37,7 +37,7 @@ angular.module('userCtrl', ['userService'])
 	};
 })
 
-.controller('userCreateController', function(User, $location) {
+.controller('userCreateController', function(User) {
 	
 	var vm = this;
 
@@ -69,7 +69,7 @@ angular.module('userCtrl', ['userService'])
 	// differentiates between create or edit pages
 	vm.type = 'edit';
 
-	vm.getUser = function(user_id) {
+vm.getUser = function(user_id) {
 		User.get(user_id)
 		.success(function(data) {
 			vm.userData = data;
