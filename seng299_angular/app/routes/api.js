@@ -12,15 +12,12 @@ module.exports = function(app, express) {
 	var apiRouter = express.Router();
 	
 	// route to authenticate a user (POST http://localhost:8080/api/authenticate)
-
-	
-
 	apiRouter.post('/authenticate', function(req, res) {
 
 	  // find the user
 	  User.findOne({
 	    username: req.body.username
-	  }).select('name username password').exec(function(err, user) {
+	  }).select("username _id password").exec(function(err, user) {
 
 	    if (err) throw err;
 
@@ -44,8 +41,8 @@ module.exports = function(app, express) {
 	        // if user is found and password is right
 	        // create a token
 	        var token = jwt.sign({
-	        	name: user.name,
-	        	username: user.username
+	        	username: user.username,
+			id: user._id
 	        }, superSecret, {
 	          expiresInMinutes: 1440 // expires in 24 hours
 	        });
@@ -95,35 +92,41 @@ module.exports = function(app, express) {
 		});
 	//route middleware to verify token
 	apiRouter.use(function(req, res, next) {
-		console.log('Verifying Token');
+		// do logging
+		console.log('Somebody just came to our app!');
 
-		//check header or url parameters or post parameters for token
-		var token = req.body.token || req.param.token || req.headers['x-access-token'];
+	  // check header or url parameters or post parameters for token
+	  var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-		//decode token
-		if (token) {
+	  // decode token
+	  if (token) {
 
-		//verify secret and check exp
-			jwt.verify(token, superSecret, function(err, decoded) {
-				if (err) {
-					return res.json({ success: false, message: 'Failed to authenticate token.' });
-				} else {
-					//if good save request in other routes
-					req.decoded = decoded;
+	    // verifies secret and checks exp
+	    jwt.verify(token, superSecret, function(err, decoded) {      
 
-					next(); //go to next route
-				}
-			});
+	      if (err) {
+	        res.status(403).send({ 
+	        	success: false, 
+	        	message: 'Failed to authenticate token.' 
+	    	});  	   
+	      } else { 
+	        // if everything is good, save to request for use in other routes
+	        req.decoded = decoded;
+	            
+	        next(); // make sure we go to the next routes and don't stop here
+	      }
+	    });
 
-		} else {
-			//if no token retrun 403 error
-			return res.status(403).send({
-				success: false,
-				message: 'No token provided.'
-			});
-		}
-	
+	  } else {
 
+	    // if there is no token
+	    // return an HTTP response of 403 (access forbidden) and an error message
+   	 	res.status(403).send({ 
+   	 		success: false, 
+   	 		message: 'No token provided.' 
+   	 	});
+	    
+	  }
 	});
 
 	// on routes that end in /users
