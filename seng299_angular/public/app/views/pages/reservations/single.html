@@ -4,10 +4,12 @@
 	<h1 ng-if="reservation.type == 'edit'">Edit Reservation</h1>
 </div>
 
-<form class="form-horizontal" ng-submit="reservation.saveReservation()">
+
+<form class="form-horizontal"   ng-init="reservation.getUser(main.user.id)" ng-submit="reservation.saveReservation()">
 	
-	<div class="form-group" ng-if="reservation.type== 'edit'">
+	<!--<div class="form-group" ng-if="reservation.type== 'edit'">
 			<input type="hidden" class="form-control" ng-model="reservation.reservationData.reservation_id" >
+	</div>-->
 	</div>
 
 	<div class="form-group">
@@ -21,17 +23,11 @@
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label class="col-sm-2 control-label">User</label>
-		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="reservation.reservationData.user_id">
-		</div>
-	</div>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">start date</label>
 		<div class="col-sm-6">
-			<input type="password" class="form-control" ng-model="reservation.reservationData.dt_start">
+			<input type="text" class="form-control" ng-model="reservation.reservationData.dt_start">
 		</div>
 	</div>
 	
