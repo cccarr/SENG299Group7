@@ -37,7 +37,7 @@ angular.module('userCtrl', ['userService'])
 	};
 })
 
-.controller('userCreateController', function(User) {
+.controller('userCreateController', function(User, $location) {
 	
 	var vm = this;
 

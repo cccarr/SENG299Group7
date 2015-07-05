@@ -35,7 +35,11 @@ angular.module('app.routes', ['ngRoute'])
 		controller: 'userEditController',
 		controllerAs: 'user'
 	})
-
+	.when("/signup", {
+		templateUrl: 'app/views/pages/signup.html',
+		controller: 'userCreateController',
+		controllerAs: 'user'
+	})
 	.when("/reservations", {
 		templateUrl: 'app/views/pages/reservations/all.html',
 		controller: 'reservationController',
