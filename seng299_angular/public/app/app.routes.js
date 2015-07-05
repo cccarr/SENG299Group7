@@ -11,6 +11,10 @@ angular.module('app.routes', ['ngRoute'])
 		controller: 'mainController',
 		controllerAs: 'main'
 	})
+
+	.when("/about", {
+		templateUrl: 'app/views/pages/about.html'
+ 	})
 	
 	.when('/login', {
 		templateUrl : 'app/views/pages/login.html',
@@ -35,11 +39,19 @@ angular.module('app.routes', ['ngRoute'])
 		controller: 'userEditController',
 		controllerAs: 'user'
 	})
+
 	.when("/signup", {
 		templateUrl: 'app/views/pages/signup.html',
 		controller: 'userCreateController',
 		controllerAs: 'user'
 	})
+
+	.when("/profile", {
+        templateUrl: 'app/views/pages/profile.html',
+        controller: 'userEditController',
+        controllerAs: 'user'
+    })
+
 	.when("/reservations", {
 		templateUrl: 'app/views/pages/reservations/all.html',
 		controller: 'reservationController',

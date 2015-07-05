@@ -29,7 +29,7 @@ angular.module('mainCtrl', [])
 			.success(function(data) {
 				vm.processing = false;			
 
-				// if a user successfully logs in, redirect to users page
+				// if a user successfully logs in, redirect to home
 				if (data.success)			
 					$location.path('/profile');
 				else 
