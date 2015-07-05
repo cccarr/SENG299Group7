@@ -2,10 +2,18 @@
 <!-- get the logged in user as the user in the controller -->
 <div class="page-header" ng-init="user.getUser(main.user.id)">
 	
-	<!-- <h1 ng-if="user.type == 'edit'" >Welcome, {{ main.user.username }} </h1> -->
-	<h1 ng-if="user.type == 'edit'" >Welcome, {{ user.userData.name }} </h1> 	
+	<h1>Welcome, {{ user.userData.username }} </h1> 	
 
-	<p>User info:</p>
+
+	<p>{{ user.userData.description }}</p>
+
+
+	<hr>
+	<p>Debug info:</p>
+
+	<p>Main.user: {{ main.user }}</p>
+
+	<p>user.UserData info:</p>
 	<ul>
 		<li>name: {{ user.userData.name }}</li>
 		<li>phone: {{ user.userData.phone }}</li>
@@ -17,10 +25,19 @@
 		<li>security question: {{ user.userData.security_question }}</li>
 		<li>seucurity answer: {{ user.userData.security_answer }}</li>
 	</ul>
+	<hr>
+
+	<h3> Your stats: </h3>
+	<p>
+	
+	Time until ban ends: {{main.user.dt_ban_end}} 
+	
+
+	</p>
 
 </div>
 
-
+<!-- When is this used.... (ever?) -->
 <div class="row show-hide-message" ng-show="user.message">
 	<div class="col-sm-6 col-sm-offset-2">
 		
@@ -31,6 +48,9 @@
 	</div>
 </div>
 
+
+
+<h3>Edit your profile</h3>
 
 <form class="form-horizontal" ng-submit="user.saveUser()">
 	
@@ -81,13 +101,7 @@
 	<p>
 
 	</p>
-	<h3> Your stats: </h3>
-	<p>
-	
-	Time until ban ends:	{{main.user.dt_ban_end}} 
-	
 
-	</p>
 </form>
 
 	<h3> Reservations </h3>
