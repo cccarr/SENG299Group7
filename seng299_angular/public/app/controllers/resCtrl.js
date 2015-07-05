@@ -36,7 +36,7 @@ angular.module('resCtrl', [])
 		};
 })
 
-.controller('reservationCreateController', function(Reservation) {
+.controller('reservationCreateController', function(Reservation,$rootScope, $location, Auth) {
 
 		var vm = this;
 

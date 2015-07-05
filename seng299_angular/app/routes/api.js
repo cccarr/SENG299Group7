@@ -75,6 +75,7 @@ module.exports = function(app, express) {
 			user.description = req.body.description;
 			user.security_question = req.body.security_question;
 			user.security_answer = req.body.security_answer;
+			user.dt_ban_end = req.body.dt_ban_end;
 			user.save(function(err) {
 
 				if (err) {
@@ -82,7 +83,7 @@ module.exports = function(app, express) {
 					if (err.code == 11000) 
 						return res.json({ success: false, message: 'A user with that username already exists. '});
 					else 
-						return res.send(err);
+login						return res.send(err);
 				}
 
 				// return a message
@@ -94,6 +95,7 @@ module.exports = function(app, express) {
 	apiRouter.use(function(req, res, next) {
 		// do logging
 		console.log('Somebody just came to our app!');
+gin
 
 	  // check header or url parameters or post parameters for token
 	  var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -164,6 +166,12 @@ apiRouter.route('/users')
 				if (err) res.send(err);
 
 				// set the new user information if it exists in the request
+				if (req.body.email) user.email = req.body.email;  // set the users username (comes from the request)
+				if (req.body.phone) user.phone = req.body.phone;
+				if (req.body.description) user.description = req.body.description;
+				if (req.body.security_question) user.security_question = req.body.security_question;
+				if (req.body.security_answer) user.security_answer = req.body.security_answer;
+				if (req.body.dt_ban_end) user.dt_ban_end = req.body.dt_ban_end;
 				if (req.body.name) user.name = req.body.name;
 				if (req.body.username) user.username = req.body.username;
 				if (req.body.password) user.password = req.body.password;
@@ -279,6 +287,17 @@ apiRouter.route('/users')
 				res.json({ message: 'Successfully deleted' });
 			});
 		});
+	
+	//get users by user_id
+	apiRouter.route('/reservationsByUser/:user_id')
+		.get(function(req, res) {
+			Reservation.find({ 'user_id': req.params.user_id }, function(err, reservations) {
+				if (err) res.send(err);
+
+				// return that reservation
+				res.json(reservations);
+			});
+		})
 
 	// api endpoint to get user information
 	apiRouter.get('/me', function(req, res) {

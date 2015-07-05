@@ -11,6 +11,12 @@ angular.module('reservationService', [])
 		// the end of the URL
 		return $http.get('/api/reservations/' + id);
 	};
+	
+	reservationFactory.getForUser = function(user_id) {
+		// since this call requires a user ID we'll add the id to
+		// the end of the URL
+		return $http.get('/api/reservationsByUser/' + user_id);
+	};
 
 	// get all reservations
 	reservationFactory.all = function() {
