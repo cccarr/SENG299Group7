@@ -27,6 +27,7 @@
 	<script src="app/services/authService.js"></script>
 	<script src="app/services/userService.js"></script>
 	<script src="app/services/reservationService.js"></script>
+	<script src="app/services/boothService.js"></script>
 	<!-- Add main Angular app files here -->
 	<script src="app/app.js"></script>
 </head>
@@ -51,6 +52,11 @@
 		<ul class="nav navbar-nav">
 			<li><a href="/reservations"><span class="glyphicon glyphicon-calendar"></span> Reservations</a></li>
 		</ul>
+
+		<ul class="nav navbar-nav">
+			<li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
+		</ul>
+
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="/about">About</a></li>
 		</ul>
@@ -67,6 +73,7 @@
 </header>
 
 <main class="container">
+
 <div ng-view></div>
 </main>
 
