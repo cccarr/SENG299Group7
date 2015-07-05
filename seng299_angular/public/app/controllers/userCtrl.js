@@ -62,28 +62,28 @@ angular.module('userCtrl', ['userService'])
 })	
 
 .controller('userEditController', function(User,$routeParams) {
-	
+
 	var vm = this;
 
 	// variable to hide/show elements of the view
 	// differentiates between create or edit pages
 	vm.type = 'edit';
 
+
 	vm.getUser = function(user_id) {
 		User.get(user_id)
-		.success(function(data) {
-			vm.userData = data;
-		});
+			.success(function(data) {
+				vm.userData = data;
+			});
 	}
 
-	User.get($routeParams.user_id)
-		.success(function(data) {
-			vm.userData = data;
-		});
-	
-	
-
-	
+	// if user data wasn't set by visiting profile...
+	if($routeParams.user_id) {
+		User.get($routeParams.user_id)
+			.success(function(data) {
+				vm.userData = data;
+		});		
+	}
 
 	vm.saveUser = function() {
 		vm.processing = true;

@@ -1,8 +1,36 @@
 
-
+<!-- get the logged in user as the user in the controller -->
 <div class="page-header" ng-init="user.getUser(main.user.id)">
-	<h1 ng-if="user.type == 'edit'" >Welcome, {{ main.user.username }} </h1>
+	
+	<!-- <h1 ng-if="user.type == 'edit'" >Welcome, {{ main.user.username }} </h1> -->
+	<h1 ng-if="user.type == 'edit'" >Welcome, {{ user.userData.name }} </h1> 	
+
+	<p>User info:</p>
+	<ul>
+		<li>name: {{ user.userData.name }}</li>
+		<li>phone: {{ user.userData.phone }}</li>
+		<li>email: {{ user.userData.email }}</li>
+		<li>username: {{ user.userData.username }}</li>
+		<li>password: {{ user.userData.password }}</li>
+		<li>description: {{ user.userData.description }}</li>
+		<li>dt_ban_end: {{ user.userData.dt_ban_end }}</li>
+		<li>security question: {{ user.userData.security_question }}</li>
+		<li>seucurity answer: {{ user.userData.security_answer }}</li>
+	</ul>
+
 </div>
+
+
+<div class="row show-hide-message" ng-show="user.message">
+	<div class="col-sm-6 col-sm-offset-2">
+		
+		<div class="alert alert-info">
+			{{ user.message }}
+		</div>
+
+	</div>
+</div>
+
 
 <form class="form-horizontal" ng-submit="user.saveUser()">
 	
@@ -90,12 +118,3 @@
 	</tbody>
 </table>
 
-<div class="row show-hide-message" ng-show="user.message">
-	<div class="col-sm-6 col-sm-offset-2">
-		
-		<div class="alert alert-info">
-			{{ user.message }}
-		</div>
-
-	</div>
-</div>

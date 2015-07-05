@@ -9,6 +9,8 @@ var superSecret = config.secret;
 
 module.exports = function(app, express) {
 
+
+
 	var apiRouter = express.Router();
 	
 	// route to authenticate a user (POST http://localhost:8080/api/authenticate)
@@ -90,10 +92,12 @@ module.exports = function(app, express) {
 			});
 
 		});
+
 	//route middleware to verify token
 	apiRouter.use(function(req, res, next) {
-		// do logging
-		console.log('Somebody just came to our app!');
+		
+	  // do logging
+	  console.log("Verifying user's token (middleware)");
 
 	  // check header or url parameters or post parameters for token
 	  var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -112,7 +116,8 @@ module.exports = function(app, express) {
 	      } else { 
 	        // if everything is good, save to request for use in other routes
 	        req.decoded = decoded;
-	            
+	        console.log("Success");
+	          
 	        next(); // make sure we go to the next routes and don't stop here
 	      }
 	    });
