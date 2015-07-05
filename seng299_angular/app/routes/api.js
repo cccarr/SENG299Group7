@@ -1,5 +1,6 @@
 var bodyParser = require('body-parser'); 	// get body-parser
 var User       = require('../models/user');
+var Booth       = require('../models/booth');
 var Reservation= require('../models/reservation');
 var jwt        = require('jsonwebtoken');
 var config     = require('../../config/config.js');
@@ -83,7 +84,7 @@ module.exports = function(app, express) {
 					if (err.code == 11000) 
 						return res.json({ success: false, message: 'A user with that username already exists. '});
 					else 
-login						return res.send(err);
+						return res.send(err);
 				}
 
 				// return a message
@@ -95,7 +96,6 @@ login						return res.send(err);
 	apiRouter.use(function(req, res, next) {
 		// do logging
 		console.log('Somebody just came to our app!');
-gin
 
 	  // check header or url parameters or post parameters for token
 	  var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -298,6 +298,85 @@ apiRouter.route('/users')
 				res.json(reservations);
 			});
 		})
+	apiRouter.route('/booths')
+
+		// create a booth (accessed at POST http://localhost:8080/booths)
+		.post(function(req, res) {
+			
+			var booth = new Booth();	
+			booth.booth_title = req.body.booth_title;
+			booth.booth_type = req.body.booth_type;  
+
+			booth.save(function(err) {
+				if (err) {
+					if (err.code == 11000) 
+						return res.json({ success: false, message: 'That booth already exists '});
+					else 
+						return res.send(err);
+				}
+
+				res.json({ message: 'Booth created!' });
+			});
+
+		})
+
+		// get all the booths (accessed at GET http://localhost:8080/api/booths)
+		.get(function(req, res) {
+
+			Booth.find({}, function(err, booths) {
+				if (err) res.send(err);
+
+				// return the booths
+				res.json(booths);
+			});
+		});
+
+	// on routes that end in /booths/:booth_id
+	// ----------------------------------------------------
+	apiRouter.route('/booths/:booth_id')
+
+		// get the booth with that id
+		.get(function(req, res) {
+			Booth.findById(req.params.booth_id, function(err, booth) {
+				if (err) res.send(err);
+
+				// return that booth
+				res.json(booth);
+			});
+		})
+
+		// update the booth with this id
+		.put(function(req, res) {
+			Booth.findById(req.params.booth_id, function(err, booth) {
+
+				if (err) res.send(err);
+
+				// set the new booth information if it exists in the request
+				if(req.body.booth_type) booth.booth_type = req.body.booth_type; 
+				if(req.body.booth_title) booth.booth_title = req.body.booth_title; 
+
+				// save the booth
+				booth.save(function(err) {
+					if (err) res.send(err);
+
+					// return a message
+					res.json({ message: 'Booth updated!' });
+				});
+
+			});
+		})
+
+		// delete the booth with this id
+		.delete(function(req, res) {
+			Booth.remove({
+				_id: req.params.booth_id
+			}, function(err, booth) {
+				if (err) res.send(err);
+
+				res.json({ message: 'Successfully deleted' });
+			});
+		});
+
 
 	// api endpoint to get user information
 	apiRouter.get('/me', function(req, res) {

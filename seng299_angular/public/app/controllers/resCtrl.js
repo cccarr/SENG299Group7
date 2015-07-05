@@ -1,4 +1,4 @@
-angular.module('resCtrl', [])
+angular.module('resCtrl', ['reservationService'])
 .controller('reservationController', function(Reservation) {
 
 		var vm = this;
@@ -36,31 +36,43 @@ angular.module('resCtrl', [])
 		};
 })
 
-.controller('reservationCreateController', function(Reservation,$rootScope, $location, Auth) {
+.controller('reservationCreateController', function(Reservation,Booth,User, $location) {
 
 		var vm = this;
 
 		// variable to hide/show elements of the view
 		// differentiates between create or edit pages
 		vm.type = 'create';
+	
 
+		Booth.all()
+		.success(function(data) {
+				vm.booths = data;
+				});
+
+		vm.getUser = function(user_id) {
+			User.get(user_id)
+			.success(function(data) {
+				vm.reservationData = data;
+				vm.reservationData.user_id = data._id;
+			});
+		}
 		// function to create a reservation
 		vm.saveReservation = function() {
-		vm.processing = true;
-		vm.message = '';
-
-		// use the create function in the reservationService
-		Reservation.create(vm.reservationData)
-		.success(function(data) {
-				vm.processing = false;
-				vm.reservationData = {};
-				vm.message = data.message;
-				});
+			vm.processing = true;
+			vm.message = '';
+			// use the create function in the reservationService
+			Reservation.create(vm.reservationData)
+			.success(function(data) {
+					vm.processing = false;
+					vm.reservationData = {};
+					vm.message = data.message;
+					});
 		}
 
 })	
 
-.controller('reservationEditController', function(Reservation,$routeParams) {
+.controller('reservationEditController', function(Reservation,Booth,$routeParams) {
 
 		var vm = this;
 
@@ -72,10 +84,15 @@ angular.module('resCtrl', [])
 		.success(function(data) {
 				vm.reservationData = data;
 				});
+		Booth.all()
+		.success(function(data) {
+				vm.booths = data;
+				});
 
 		vm.saveReservation = function() {
 		vm.processing = true;
 		vm.message = '';
+
 
 		Reservation.edit($routeParams.reservation_id,vm.reservationData)
 			.success(function(data) {

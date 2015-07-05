@@ -4,22 +4,19 @@
 	<h1 ng-if="reservation.type == 'edit'">Edit Reservation</h1>
 </div>
 
-<form class="form-horizontal" ng-submit="reservation.saveReservation()">
+
+<form class="form-horizontal"   ng-init="reservation.getUser(main.user.id)" ng-submit="reservation.saveReservation()">
 	
 	<!--<div class="form-group" ng-if="reservation.type== 'edit'">
 			<input type="hidden" class="form-control" ng-model="reservation.reservationData.reservation_id" >
 	</div>-->
-	<div class="form-group">
-		<div class="col-sm-6">
-			<input type="hidden" class="form-control" ng-model="reservation.reservationData.user_id" value="{{ main.user.user_id  }}">
-		</div>
 	</div>
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Booth</label>
 		<div class="col-sm-6">
 			<!--Drop down menu of booths-->
-			<select class="form-control" ng-options="booth.booth_title as booth.booth_id for booth in reservation.booths" ng-model="reservation.reservationData.booth_id"> 
+			<select class="form-control" ng-options="booth.booth_title for booth in reservation.booths" ng-model="reservation.reservationData.booth_id"> 
 			</select>
 			
 
@@ -30,7 +27,7 @@
 	<div class="form-group">
 		<label class="col-sm-2 control-label">start date</label>
 		<div class="col-sm-6">
-			<input type="password" class="form-control" ng-model="reservation.reservationData.dt_start">
+			<input type="text" class="form-control" ng-model="reservation.reservationData.dt_start">
 		</div>
 	</div>
 	
