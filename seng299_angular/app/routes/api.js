@@ -18,7 +18,7 @@ module.exports = function(app, express) {
 	  // find the user
 	  User.findOne({
 	    username: req.body.username
-	  }).select("username _id password").exec(function(err, user) {
+	  }).select("username _id password isAdmin").exec(function(err, user) {
 
 	    if (err) throw err;
 
@@ -43,7 +43,8 @@ module.exports = function(app, express) {
 	        // create a token
 	        var token = jwt.sign({
 	        	username: user.username,
-			id: user._id
+			id: user._id,
+			isAdmin: user.isAdmin
 	        }, superSecret, {
 	          expiresInMinutes: 1440 // expires in 24 hours
 	        });
@@ -77,6 +78,8 @@ module.exports = function(app, express) {
 			user.security_question = req.body.security_question;
 			user.security_answer = req.body.security_answer;
 			user.dt_ban_end = req.body.dt_ban_end;
+			user.isAdmin = false;
+
 			user.save(function(err) {
 
 				if (err) {
@@ -175,7 +178,7 @@ apiRouter.route('/users')
 				if (req.body.name) user.name = req.body.name;
 				if (req.body.username) user.username = req.body.username;
 				if (req.body.password) user.password = req.body.password;
-
+				if (req.body.isAdmin) user.isAdmin = req.body.isAdmin;
 				// save the user
 				user.save(function(err) {
 					if (err) res.send(err);
