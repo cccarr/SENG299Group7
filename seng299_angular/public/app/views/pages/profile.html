@@ -1,11 +1,22 @@
 
+<div class="jumbotron">
+
 <!-- get the logged in user as the user in the controller -->
 <div class="page-header" ng-init="user.getUser(main.user.id)">
 	
-	<!-- <h1 ng-if="user.type == 'edit'" >Welcome, {{ main.user.username }} </h1> -->
-	<h1 ng-if="user.type == 'edit'" >Welcome, {{ user.userData.name }} </h1> 	
+	<h1>Welcome, {{ user.userData.username }} </h1> 	
 
-	<p>User info:</p>
+
+	<p>{{ user.userData.description }}</p>
+
+	<a href="/users/{{ main.user.id }}" class="btn btn-large">Edit your information</a>
+
+	<hr>
+	<p>Debug info:</p>
+
+	<p>Main.user: {{ main.user }}</p>
+
+	<p>user.UserData info:</p>
 	<ul>
 		<li>name: {{ user.userData.name }}</li>
 		<li>phone: {{ user.userData.phone }}</li>
@@ -17,10 +28,19 @@
 		<li>security question: {{ user.userData.security_question }}</li>
 		<li>seucurity answer: {{ user.userData.security_answer }}</li>
 	</ul>
+	<hr>
+
+	<h3> Your stats: </h3>
+	<p>
+	
+	Time until ban ends: {{user.userData.dt_ban_end}} 
+	
+
+	</p>
 
 </div>
 
-
+<!-- When is this used.... (ever?) -->
 <div class="row show-hide-message" ng-show="user.message">
 	<div class="col-sm-6 col-sm-offset-2">
 		
@@ -32,73 +52,13 @@
 </div>
 
 
-<form class="form-horizontal" ng-submit="user.saveUser()">
-	
-	<div class="form-group" ng-if="user.type== 'edit'">
-			<input type="hidden" class="form-control" ng-model="user.userData.user_id" >
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Name</label>
-		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="user.userData.name">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Username</label>
-		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="user.userData.username">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Password</label>
-		<div class="col-sm-6">
-			<input type="password" class="form-control" ng-model="user.userData.password">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Email</label>
-		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="user.userData.email">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Phone number</label>
-		<div class="col-sm-6">
-			<input type="text" class="form-control" ng-model="user.userData.phone">
-		</div>
-	</div>
-	
-	<div class="form-group">
-	<div class="col-sm-offset-2 col-sm-6">
-		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'edit'">Update Profile</button>
-	</div>
-	</div>
-	<p>
-
-	</p>
-	<h3> Your stats: </h3>
-	<p>
-	
-	Time until ban ends:	{{main.user.dt_ban_end}} 
-	
-
-	</p>
-</form>
-
-	<h3> Reservations </h3>
+<h3> Reservations </h3>
 
 	<table class="table table-bordered table-striped" ng-controller="reservationController as res">
 	<thead>
 		<tr>
-		
 			<th>Booth</th>
 			<th>Date Start</th>
-			
 		</tr>
 	</thead>
 	<tbody>
@@ -118,3 +78,6 @@
 	</tbody>
 </table>
 
+
+
+</div>
