@@ -53,7 +53,7 @@
 		<ul class="nav navbar-nav" ng-if="main.user.isAdmin">
 			<li><a href="/reservations"><span class="glyphicon glyphicon-calendar"></span> Reservations</a></li>
 		</ul>
-		<ul class="nav navbar-nav" ng-if="!main.user.isAdmin">
+		<ul class="nav navbar-nav" ng-if="!main.user.isAdmin && main.loggedIn">
 			<li><a href="/reservations/create"><span class="glyphicon glyphicon-calendar"></span> Book a Reservation</a></li>
 		</ul>
 
