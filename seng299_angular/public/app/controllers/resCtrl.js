@@ -5,6 +5,29 @@ angular.module('resCtrl', ['reservationService'])
 
 		// set a processing variable to show loading things
 		vm.processing = true;
+ 
+			vm.temp_name = "booth name";
+
+		
+		vm.getBoothName = function(booth_id) {
+		var dict = {"5585d170e4b000778c02c05d": "Lunch Booth 1",
+			    "5594725fe4b05a4f296971b5": "Lunch Booth 2", 
+			    "5594729fe4b05a4f296971bc": "Lunch Booth 3",
+			    "559472bae4b05a4f296971bd": "Merchandise Booth 3",
+			    "559472dae4b05a4f296971bf": "Merchandise Booth 1",
+			    "559472f1e4b05a4f296971c2": "Merchandise Booth 4",
+			    "55947317e4b05a4f296971c5": "Merchandise Booth 5",
+			    "559472e6e4b05a4f296971c1": "Merchandise Booth 2",
+			    "5594733fe4b05a4f296971c7": "Produce Booth 1",
+			    "55947349e4b05a4f296971c8": "Produce Booth 2",
+			    "55947362e4b05a4f296971cb": "Produce Booth 3",
+			    "55947374e4b05a4f296971cf": "Produce Booth 4"};
+
+			return dict[booth_id];			
+		};
+
+
+
 
 		// grab all the reservations at page load
 		Reservation.all()
@@ -15,7 +38,9 @@ angular.module('resCtrl', ['reservationService'])
 
 				// bind the reservations that come back to vm.reservations
 				vm.reservations = data;
+				console.log(vm.reservations);
 				});
+	
 
 		vm.deleteReservation = function(id) {
 		vm.processing = true;
@@ -88,6 +113,7 @@ angular.module('resCtrl', ['reservationService'])
 		.success(function(data) {
 				vm.booths = data;
 				});
+		
 
 		vm.saveReservation = function() {
 		vm.processing = true;

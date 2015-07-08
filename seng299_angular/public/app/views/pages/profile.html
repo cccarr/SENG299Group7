@@ -3,10 +3,10 @@
 
 <!-- get the logged in user as the user in the controller -->
 <div class="page-header" ng-init="user.getUser(main.user.id)">
-	
+
+
 	<h1>Welcome, {{ user.userData.username }} </h1> 	
 	<p>{{ user.userData.description }}</p>
-
 	<a href="/users/{{ main.user.id }}" class="btn btn-large">Edit your information</a>
 <!--
  	<hr>
@@ -49,7 +49,6 @@
 	<thead>
 		<tr>
 			<th>Booth</th>
-			<th>User id</th>
 			<th>Date start</th>
 			<th>Delete</th>
 			<th>Edit</th>
@@ -60,8 +59,8 @@
 		<!-- Only show reservations that belong to this user -->
 		<tr ng-repeat="booking in res.reservations" ng-if="booking.user_id == main.user.id">
 
-				<td>{{ booking.booth_title }}</td>
-				<td>{{ booking.user_id }}</td>
+				
+				<td>{{ res.getBoothName(booking.booth_id) }}</td>
 				<td>{{ booking.dt_start }}</td>
 				<td class="col-sm-2">
 					<a href="#" ng-click="reservation.deleteReservation(booking._id)" class="btn btn-primary">Delete</a>
