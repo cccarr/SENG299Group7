@@ -36,6 +36,7 @@ angular.module('resCtrl', ['reservationService'])
 		};
 })
 
+
 .controller('reservationCreateController', function(Reservation,Booth,User, $location) {
 
 		var vm = this;
