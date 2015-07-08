@@ -15,8 +15,6 @@
 </div>
 
 
-
-
 <h3>Your Reservations</h3>
 
 	<table class="table table-bordered table-striped" ng-controller="reservationController as res">
@@ -34,7 +32,7 @@
 		<!-- Only show reservations that belong to this user -->
 		<tr ng-repeat="booking in res.reservations" ng-if="booking.user_id == main.user.id">
 
-				<td>{{ booking.booth_title }}</td>
+				<td>{{ booking.booth_id }}</td>
 				<td>{{ booking.user_id }}</td>
 				<td>{{ booking.dt_start }}</td>
 				<td class="col-sm-2">
