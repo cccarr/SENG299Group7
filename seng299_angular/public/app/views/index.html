@@ -46,14 +46,14 @@
 		<ul class="nav navbar-nav">
 			<li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 		</ul>
-		<ul class="nav navbar-nav">
+		<ul class="nav navbar-nav" ng-if="main.loggedIn">
 			<li><a href="/profile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 		</ul>	
-		<ul class="nav navbar-nav">
+		<ul class="nav navbar-nav" ng-if="main.loggedIn">
 			<li><a href="/reservations"><span class="glyphicon glyphicon-calendar"></span> Reservations</a></li>
 		</ul>
 
-		<ul class="nav navbar-nav">
+		<ul class="nav navbar-nav" ng-if="main.user.isAdmin">
 			<li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
 		</ul>
 
