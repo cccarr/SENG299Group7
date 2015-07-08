@@ -8,11 +8,8 @@ angular.module('userApp', ['app.routes', 'authService','mainCtrl','userService',
 
 })
 
-.constant('angularMomentConfig', {
-    preprocess: 'unix', // optional
-    timezone: 'America/Vancouver' // optional
+.run(function(amMoment) {
+    amMoment.changeLocale('CA');
 })
 
-.run(function(amMoment) {
-    amMoment.changeLocale('en');
-});
+

@@ -6,7 +6,6 @@ angular.module('userCtrl', ['userService'])
 
 	// set a processing variable to show loading things
 	vm.processing = true;
-
 	// grab all the users at page load
 	User.all()
 		.success(function(data) {
@@ -67,12 +66,21 @@ angular.module('userCtrl', ['userService'])
 	// variable to hide/show elements of the view
 	// differentiates between create or edit pages
 	vm.type = 'edit';
-
+	
 
 	vm.getUser = function(user_id) {
 		User.get(user_id)
 			.success(function(data) {
 				vm.userData = data;
+				var userBan = new Date(data.dt_ban_end);
+				vm.currentDate= new Date();
+				vm.currentDateMilli= vm.currentDate.getTime()-25200000;
+				vm.userBanMilli= userBan.getTime();
+				if((vm.userBanMilli - vm.currentDate.getTime())>0)
+					vm.banned=true;
+				else
+					vm.banned=false;
+					
 			});
 	}
 

@@ -95,20 +95,20 @@ angular.module('resCtrl', ['reservationService'])
 		vm.getUser = function(user_id) {
 			User.get(user_id)
 			.success(function(data) {
-				
+			
 				vm.reservationData = data;
 				vm.reservationData.user_id = data._id;
+				var userBan = new Date(vm.reservationData.dt_ban_end);
+				vm.banned =false;
+				var currentDate = new Date();
+				var timeDiff = userBan.getTime() - (currentDate.getTime()-28800000);
+
+				if(timeDiff>0) {
+					vm.banned = true;
+				}
 			});
 		}
 
-		vm.banned =false;
-		var currentDate = new Date();
-		var timeDiff = user.dt_ban_end.getTime() - (currentDate.getTime()-28800000);
-
-		if(timeDiff>0) {
-			console.log("BANNED");
-			vm.banned = true;
-		}
 
 
 		// function to create a reservation

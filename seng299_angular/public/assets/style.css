@@ -8,6 +8,9 @@ header .navbar 		{
 	border-radius:0;
 	background-color: green;
 }
+.btn-fail {
+	color: red;
+}
 
 /* NGANIMATE
 ====================== */
