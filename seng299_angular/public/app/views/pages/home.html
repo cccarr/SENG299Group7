@@ -1,10 +1,10 @@
 	<!-- ANGULAR VIEWS -->
 	<div class="jumbotron text-center">
-	<h1>Fernwood Farmer's Market</h1>
+	<h1>Fernwood Farmers' Market</h1>
 
 
 	<div ng-if="!main.loggedIn">
-		<p>Login to see manage reservations.</p>
+		<p>Login to see and manage your booth reservations.</p>
 		<a href="/login" class="btn btn-primary">Login</a>
 	</div>
 
@@ -13,7 +13,7 @@
 
 
 	<div ng-if="main.loggedIn">
-		<p>Manage your reservations.</p>
+		<p>Manage your booth reservations.</p>
 		<a ng-if="main.user.isAdmin" href="/users" class="btn btn-primary">Manage users</a>
 		<a ng-if="main.user.isAdmin" href="/reservations" class="btn btn-primary">Manage Reservations</a>
 		<a ng-if="!main.user.isAdmin" href="/reservations/create" class="btn btn-primary">Make a Reservation</a>

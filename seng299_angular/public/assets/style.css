@@ -48,3 +48,18 @@ margin-right: 10px;
 	from 	{ -moz-transform:rotate(0deg); }	
 	to 	{ -moz-transform:rotate(360deg); }
 }
+
+
+
+
+
+/* USER PROFILE
+====================== */
+#user-info-table {
+	text-align: center;
+	font-style: italic;
+}
+
+#user-info-table td {
+	padding: 10px;
+}
