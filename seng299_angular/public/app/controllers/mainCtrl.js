@@ -1,4 +1,4 @@
-angular.module('mainCtrl', [])
+angular.module('mainCtrl', ['ui.bootstrap'])
 
 .controller('mainController', function($rootScope, $location, Auth) {
 

@@ -1,4 +1,4 @@
-angular.module('resCtrl', ['reservationService'])
+angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 .controller('reservationController', function(Reservation,User) {
 
 		var vm = this;
@@ -9,6 +9,8 @@ angular.module('resCtrl', ['reservationService'])
 			vm.temp_name = "booth name";
 
 		
+
+
 		vm.getBoothName = function(booth_id) {
 		var dict = {"5585d170e4b000778c02c05d": "Lunch Booth 1",
 			    "5594725fe4b05a4f296971b5": "Lunch Booth 2", 
@@ -38,6 +40,29 @@ angular.module('resCtrl', ['reservationService'])
 		}
 
 		// grab all the reservations at page load
+		User.all()
+		.success(function(data) {
+
+				// when all the reservations come back, remove the processing variable
+				vm.processing = false;
+
+				// bind the reservations that come back to vm.reservations
+				vm.users = data;
+				console.log(vm.users);
+				});
+
+		vm.getUserName = function(user_id) {
+			var log=[];
+			var username="";
+			angular.forEach(vm.users, function(user,key) {
+			  if(user._id==user_id) {
+				console.log("HERE"+user.username);
+				username =user.username
+				}
+			},log);
+			return username;
+		};
+
 		Reservation.all()
 		.success(function(data) {
 
@@ -102,10 +127,11 @@ angular.module('resCtrl', ['reservationService'])
 
 								});
 				});
+
 		};
 })
 
-.controller('reservationCreateController', function(Reservation,Booth,User, $location) {
+.controller('reservationCreateController', function(Reservation,Booth,User, $location,$scope,$modal) {
 
 		var vm = this;
 
@@ -116,7 +142,8 @@ angular.module('resCtrl', ['reservationService'])
 		Booth.all()
 		.success(function(data) {
 				vm.booths = data;
-				});
+		});
+
 		vm.getUser = function(user_id) {
 			User.get(user_id)
 			.success(function(data) {
@@ -135,7 +162,12 @@ angular.module('resCtrl', ['reservationService'])
 		}
 
 
-
+		$scope.open = function () {
+			var modalInstance = $modal.open({
+				templateUrl: 'app/views/pages/dateModal.html',
+				controller: 'DateModalCtrl'
+			});	
+		};
 		// function to create a reservation
 		vm.saveReservation = function() {
 			vm.processing = true;
@@ -187,4 +219,20 @@ angular.module('resCtrl', ['reservationService'])
 				vm.message = data.message;
 			});
 	}
-});
+})
+
+.controller('DateModalCtrl', [ '$scope', '$modalInstance', function ($scope, $modalInstance) {
+    $scope.required= {};
+    $scope.disabled = function(date, mode) {
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+	$scope.dt = {};
+	$scope.$watch('dt.value', function(newValue) { 
+	  if (newValue) $scope.required.timestamp = Math.floor(newValue.getTime() / 1000); 
+	  console.log('timestamp: ', $scope.required.timestamp, '/ dt: ', newValue);
+	});
+    $scope.minDate = new Date();
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+}]);

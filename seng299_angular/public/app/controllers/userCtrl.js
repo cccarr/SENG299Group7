@@ -76,7 +76,7 @@ angular.module('userCtrl', ['userService'])
 				vm.currentDate= new Date();
 				vm.currentDateMilli= vm.currentDate.getTime()-25200000;
 				vm.userBanMilli= userBan.getTime();
-				if((vm.userBanMilli - vm.currentDate.getTime())>0)
+				if((vm.userBanMilli - vm.currentDateMilli)>0)
 					vm.banned=true;
 				else
 					vm.banned=false;
