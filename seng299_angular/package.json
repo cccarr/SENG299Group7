@@ -1,17 +1,11 @@
 {
   "name": "Lab7",
   "version": "1.0.0",
-  "description": "Lab 7 Exercise",
+  "description": "Farmer's Market Project",
   "main": "server.js",
   "dependencies": {
     "express": "~4.13.0",
-    "ejs": "~2.3.1",
     "mongoose": "~4.0.6",
-    "passport": "~0.2.2",
-    "passport-local": "~1.0.0",
-    "passport-facebook": "~2.0.0",
-    "passport-twitter": "~1.0.3",
-    "passport-google-oauth": "~0.2.0",
     "connect-flash": "~0.1.1",
     "jsonwebtoken": "^1.2.0",
     "bcrypt-nodejs": "0.0.3",

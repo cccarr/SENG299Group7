@@ -80,7 +80,7 @@ module.exports = function(app, express) {
 			user.security_question = req.body.security_question;
 			user.security_answer = req.body.security_answer;
 			user.dt_ban_end = req.body.dt_ban_end;
-			user.isAdmin = false;
+			user.isAdmin = req.body.isAdmin;
 
 			user.save(function(err) {
 
@@ -141,17 +141,17 @@ module.exports = function(app, express) {
 
 	// on routes that end in /users
 
-apiRouter.route('/users')
-		// get all the users (accessed at GET http://localhost:8080/api/users)
-		.get(function(req, res) {
+// apiRouter.route('/users')
+// 		// get all the users (accessed at GET http://localhost:8080/api/users)
+// 		.get(function(req, res) {
 
-			User.find({}, function(err, users) {
-				if (err) res.send(err);
+// 			User.find({}, function(err, users) {
+// 				if (err) res.send(err);
 
-				// return the users
-				res.json(users);
-			});
-		});
+// 				// return the users
+// 				res.json(users);
+// 			});
+// 		});
 
 	// on routes that end in /users/:user_id
 	// ----------------------------------------------------
@@ -390,6 +390,35 @@ apiRouter.route('/users')
 	apiRouter.get('/me', function(req, res) {
 		res.send(req.decoded);
 	});
+
+
+
+	// middleware to prevent non-admin from accessing admin-only pages
+	apiRouter.use(function(req, res, next) {
+	  console.log("Checking if user has admin privileges to access page");
+
+	  if (req.decoded.isAdmin) {
+	        console.log("Success");        
+	        next(); // make sure we go to the next routes and don't stop here
+	  } else {
+
+	  	console.log("permission denied. User not admin.");
+	  }
+	});
+
+	// only admin can access /users page
+	apiRouter.route('/users')
+		// get all the users (accessed at GET http://localhost:8080/api/users)
+		.get(function(req, res) {
+
+			User.find({}, function(err, users) {
+				if (err) res.send(err);
+
+				// return the users
+				res.json(users);
+			});
+		});
+
 
 	return apiRouter;
 };

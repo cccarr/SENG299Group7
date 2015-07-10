@@ -4,10 +4,6 @@ angular.module('mainCtrl', [])
 
 	var vm = this;
 	
-	vm.message = {
-	   text: 'hello world!',
-	   time: new Date()
-	};
 	// get info if a person is logged in
 	vm.loggedIn = Auth.isLoggedIn();
 

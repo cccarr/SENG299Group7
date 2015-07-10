@@ -3,45 +3,17 @@
 
 <!-- get the logged in user as the user in the controller -->
 <div class="page-header" ng-init="user.getUser(main.user.id)">
-
-
-	<h1>Welcome, {{ user.userData.username }} </h1> 	
+	
+	<h1>Welcome, {{ user.userData.username }} </h1> 
 	<p>{{ user.userData.description }}</p>
 	<a href="/users/{{ main.user.id }}" class="btn btn-large">Edit your information</a>
-<!--
- 	<hr>
-	<p>Debug info:</p>
 
-	<p>Main.user: {{ main.user }}</p>
-
-	<p>user.UserData info:</p>
-	<ul>
-		<li>name: {{ user.userData.name }}</li>
-		<li>phone: {{ user.userData.phone }}</li>
-		<li>email: {{ user.userData.email }}</li>
-		<li>username: {{ user.userData.username }}</li>
-		<li>password: {{ user.userData.password }}</li>
-		<li>description: {{ user.userData.description }}</li>
-		<li>dt_ban_end: {{ user.userData.dt_ban_end }}</li>
-		<li>security question: {{ user.userData.security_question }}</li>
-		<li>seucurity answer: {{ user.userData.security_answer }}</li>
-	</ul>
-	<hr>
- -->
-	<h3> Your stats: </h3>
-	<p>Time until ban ends: {{user.userData.dt_ban_end}}</p>
+	<h3> Account info: </h3>
+	<p ng-if="main.user.isAdmin">You <em>are</em> an admin.</p> 	
+	<p ng-if="!main.user.isAdmin">You <em>are</em> a vendor.</p> 	
+	<p ng-if="user.banned">You are currently banned. Time until ban ends:  {{ user.userBanMilli | amDifference : user.currentDate : 'days' }} day(s)</span>
 </div>
 
-<!-- When is this used.... (ever?) -->
-<!-- <div class="row show-hide-message" ng-show="user.message">
-	<div class="col-sm-6 col-sm-offset-2">
-		
-		<div class="alert alert-info">
-			{{ user.message }}
-		</div>
-	</div>
-</div>
- -->
 
 <h3>Your Reservations</h3>
 
@@ -50,8 +22,8 @@
 		<tr>
 			<th>Booth</th>
 			<th>Date start</th>
+			<th>Description</th>
 			<th>Delete</th>
-			<th>Edit</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -62,11 +34,9 @@
 				
 				<td>{{ res.getBoothName(booking.booth_id) }}</td>
 				<td>{{ booking.dt_start }}</td>
+				<td>{{ booking.description }}</td>
 				<td class="col-sm-2">
-					<a href="#" ng-click="reservation.deleteReservation(booking._id)" class="btn btn-primary">Delete</a>
-				</td>
-				<td class="col-sm-2">
-					<a href="/reservations/{{booking._id}}" class="btn btn-primary">Edit</a>
+					<a href="#" ng-click="reservation.deleteUserReservation(booking._id)" class="btn btn-primary">Delete</a>
 				</td>
 
 			</div>

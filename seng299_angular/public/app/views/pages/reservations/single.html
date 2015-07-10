@@ -33,7 +33,8 @@
 	
 	<div class="form-group">
 	<div class="col-sm-offset-2 col-sm-6">
-		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="reservation.type == 'create'">Create Reservation</button>
+		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="reservation.type == 'create' && !reservation.banned">Create Reservation</button>
+		<button type="submit" class="btn btn-fail btn-lg btn-block" ng-if="reservation.type == 'create' && reservation.banned" disabled>Sorry, but you have been banned</button>
 		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="reservation.type == 'edit'">Update Reservation</button>
 	</div>
 	</div>
