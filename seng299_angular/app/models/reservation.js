@@ -6,9 +6,9 @@ var bcrypt 	 = require('bcrypt-nodejs');
 var ReservationSchema  = new Schema({
 	booth_id : String,
 	user_id : String,
-	dt_start: String,
-	dt_booked: String,
-	dt_cancelled: String,
+	dt_start: Date,
+	dt_booked: Date,
+	dt_cancelled: Date,
 });
 
 
