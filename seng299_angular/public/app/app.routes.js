@@ -41,7 +41,6 @@ angular.module('app.routes', ['ngRoute'])
 	})
 
 	.when("/users/:user_id/edit", {
-		// the selected users edit page 
 		templateUrl: 'app/views/pages/users/single.html',
 		controller: 'userEditController',
 		controllerAs: 'user'
@@ -52,12 +51,6 @@ angular.module('app.routes', ['ngRoute'])
 		controller: 'userCreateController',
 		controllerAs: 'user'
 	})
-
-	// .when("/profile", {
-	// 	templateUrl: 'app/views/pages/profile.html',
-	// 	controller: 'userEditController',
-	// 	controllerAs: 'user'
-	// })
 
 	.when("/reservations", {
 		templateUrl: 'app/views/pages/reservations/all.html',
@@ -76,6 +69,7 @@ angular.module('app.routes', ['ngRoute'])
 		controller: 'reservationEditController',
 		controllerAs: 'reservation'
 	});
+	
 	// Added to remove the # from URLs
 	$locationProvider.html5Mode(true);
 });

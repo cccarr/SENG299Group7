@@ -127,5 +127,7 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 			else
 				vm.banned=false;
 	});
+
+		
 })
 
