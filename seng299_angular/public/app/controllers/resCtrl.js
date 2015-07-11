@@ -131,18 +131,94 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		};
 })
 
-.controller('reservationCreateController', function(Reservation,Booth,User, $location,$scope,$modal) {
+.controller('reservationCreateController', function(Reservation,Booth,User, $location,$timeout,$scope,$modal) {
 
-		var vm = this;
+	var vm = this;
+	vm.reservationData = "";
+	    vm.reservationData.dt_start = new Date();
+	 $scope.today = function() {
+	    vm.reservationData.dt_start = new Date();
+	  };
+	  $scope.today();
 
+	  $scope.showWeeks = true;
+	  $scope.toggleWeeks = function () {
+	    $scope.showWeeks = ! $scope.showWeeks;
+	  };
+
+	  $scope.clear = function () {
+	    $scope.dt = null;
+	  };
+
+	  // Disable weekend selection
+	  $scope.disabled = function(date, mode) {
+	    return ( mode === 'day' && ( date.getDay() === 1 ) );
+	  };
+
+	  $scope.toggleMin = function() {
+	    $scope.minDate = ( $scope.minDate ) ? null : new Date();
+	  };
+	  $scope.toggleMin();
+
+	  $scope.open = function($event) {
+	    $event.preventDefault();
+	    $event.stopPropagation();
+	      $scope.opened = true;
+	  };
+
+	  $scope.dateOptions = {
+	    'year-format': "'yy'",
+	    'starting-day': 1
+	  };
+
+
+	$scope.getDayClass = function(date, mode) {
+	    if (mode === 'day') {
+	      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+	      for (var i=0;i<$scope.events.length;i++){
+		var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+		}
+	    }
+	}
 		// variable to hide/show elements of the view
 		// differentiates between create or edit pages
 		vm.type = 'create';
-
 		Booth.all()
 		.success(function(data) {
 				vm.booths = data;
 		});
+		$scope.status = {
+		    isopen: false
+		  };
+
+		  $scope.toggled = function(open) {
+		  };
+
+		  $scope.toggleDropdown = function($event) {
+		    $event.preventDefault();
+		    $event.stopPropagation();
+		    $scope.status.isopen = !$scope.status.isopen;
+		  };
+		
+		vm.time  = { "10": "10",
+			     "2": "2", 
+		}
+
+		vm.setTime = function(time) {
+			console.log("here"+time);
+			vm.reservationData.dt_start.setHours(time,0,0,0);
+			console.log("here"+vm.reservationData.dt_start);
+			
+		}
+
+		vm.getResForDay = function(dt_start) {
+			Reservation.getForDay(dt_start)
+			.success(function(data) {
+				vm.reservationsForDay=data;
+				console.log(data);
+			});
+		}	
 
 		vm.getUser = function(user_id) {
 			User.get(user_id)
@@ -162,12 +238,6 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		}
 
 
-		$scope.open = function () {
-			var modalInstance = $modal.open({
-				templateUrl: 'app/views/pages/dateModal.html',
-				controller: 'DateModalCtrl'
-			});	
-		};
 		// function to create a reservation
 		vm.saveReservation = function() {
 			vm.processing = true;
@@ -221,18 +291,3 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 	}
 })
 
-.controller('DateModalCtrl', [ '$scope', '$modalInstance', function ($scope, $modalInstance) {
-    $scope.required= {};
-    $scope.disabled = function(date, mode) {
-        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
-	$scope.dt = {};
-	$scope.$watch('dt.value', function(newValue) { 
-	  if (newValue) $scope.required.timestamp = Math.floor(newValue.getTime() / 1000); 
-	  console.log('timestamp: ', $scope.required.timestamp, '/ dt: ', newValue);
-	});
-    $scope.minDate = new Date();
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-}]);
