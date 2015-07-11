@@ -14,7 +14,7 @@ angular.module('userCtrl', ['userService'])
 			vm.processing = false;
 
 			// bind the users that come back to vm.users
-			vm.users = data;
+			vm.users = data;vm.user = '';
 		});
 
 	vm.deleteUser = function(id) {
@@ -109,12 +109,20 @@ angular.module('userCtrl', ['userService'])
 })
 
 
-.controller('userProfileController', function(User,$routeParams) {
+.controller('userProfileController', function(User,$routeParams, $location, Auth, $scope) {
 
 	var vm = this;
 
 	User.get($routeParams.user_id)
 		.success(function(data) {
 			vm.userData = data;
-	});		
+	});
+	
+	vm.deleteUser = function(id) {
+		User.delete(id)
+			.success(function(data) {
+				Auth.logout();
+				$location.path('/');	
+			});
+	};			
 });
