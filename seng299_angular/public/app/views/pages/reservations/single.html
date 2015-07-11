@@ -36,11 +36,15 @@
 				Select a Time <span class="caret"></span>
 			</button>
 		      <ul class="dropdown-menu">
-			<li ng-repeat="choice in reservation.time">
+			<li ng-if="reservation.reservationData.dt_start.getDay() != '0' "ng-repeat="choice in reservation.time">
+			  <a ng-click="reservation.getResForDay(choice)">{{choice}}</a>
+			</li>
+			<li ng-if="reservation.reservationData.dt_start.getDay() == '0' "ng-repeat="choice in reservation.timeSun">
 			  <a ng-click="reservation.getResForDay(choice)">{{choice}}</a>
 			</li>
 		      </ul>
-		    </span>	
+		       {{reservation.reservationData.dt_start.getHours()}}:00 - {{reservation.reservationData.dt_start.getHours()+4}}:00
+		    </span>
 		    </div>
 		</div>
 	</div>

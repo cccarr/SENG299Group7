@@ -198,13 +198,15 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		    $scope.status.isopen = !$scope.status.isopen;
 		  };
 
-	$scope.$watch(function(scope) { return vm.reservationData.dt_start },
+	/*$scope.$watch(function(scope) { return vm.reservationData.dt_start },
               vm.getResForDay();
-             );
+             ); */
 	
 		vm.time  = { "10": "10",
-			     "2": "2", 
+			     "16": "16"
 		}
+
+		vm.timeSun = {  "12": "12"  }
 
 		setTime = function(time) {
 			vm.reservationData.dt_start.setHours(time,0,0,0);
