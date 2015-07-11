@@ -24,7 +24,7 @@ angular.module('userService', [])
 	userFactory.delete = function(id) {
 		return $http.delete('/api/users/' + id);
 	};
-	userFactory.create = function(userData){
+	userFactory.create = function(userData) {
 		// since this is a post method we need to include userData
 		// from our form
 		return $http.post('/api/users', userData)	

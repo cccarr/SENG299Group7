@@ -1,3 +1,7 @@
+<div class="jumbotron" ng-if="!main.user.isAdmin"><h1>Access denied.</h1></div>
+
+<div ng-if="main.user.isAdmin">
+
 <div class="page-header">
 	<h1>
 		Reservation Management
@@ -35,3 +39,6 @@
 		</tr>
 	</tbody>
 </table>
+
+
+</div>

@@ -116,5 +116,14 @@ angular.module('userCtrl', ['userService'])
 	User.get($routeParams.user_id)
 		.success(function(data) {
 			vm.userData = data;
-	});		
+
+			var userBan = new Date(data.dt_ban_end);
+			vm.currentDate= new Date();
+			vm.currentDateMilli= vm.currentDate.getTime()-25200000;
+			vm.userBanMilli= userBan.getTime();
+			if((vm.userBanMilli - vm.currentDateMilli)>0)
+				vm.banned=true;
+			else
+				vm.banned=false;
+	});
 });
