@@ -19,6 +19,7 @@
 			<th>_id</th>
 			<th>Name</th>
 			<th>Username</th>
+			<th>Email</th>
 			<th>Profile</th>
 			<th>Edit</th>
 			<th>Delete</th>
@@ -26,10 +27,10 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="person in user.users">
-			<td>{{ person._id }}</td>
-			<td>{{ person.dt_ban_end }}</td>
+			<td class="col-sm-2">{{ person._id }}</td>
+			<td>{{ person.name }}</td>
 			<td>{{ person.username }}</td>
-			
+			<td>{{ person.email }}</td>			
 			<td class="col-sm-1">
 				<a href="/users/{{person._id}}" class="btn btn-primary">Profile</a>
 			</td>

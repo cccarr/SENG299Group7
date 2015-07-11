@@ -55,7 +55,7 @@ angular.module('userCtrl', ['userService'])
 				vm.userData = {};
 				vm.message = data.message;
 
-				$location.path('/');
+				$location.path('/users');
 			});
 	}
 			
