@@ -1,4 +1,4 @@
-angular.module('userCtrl', ['userService'])
+angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPagination'])
 
 .controller('userController', function($location, User) {
 
@@ -14,11 +14,11 @@ angular.module('userCtrl', ['userService'])
 			vm.processing = false;
 
 			// bind the users that come back to vm.users
-			vm.users = data;
+			vm.users = data;		
 		});
 
 	vm.deleteUser = function(id) {
-		vm.processing = true;
+		vm.processing = true
 
 		User.delete(id)
 			.success(function(data) {
@@ -34,6 +34,7 @@ angular.module('userCtrl', ['userService'])
 
 			});
 	};
+
 })
 
 .controller('userCreateController', function(User, $location) {
@@ -126,4 +127,5 @@ angular.module('userCtrl', ['userService'])
 			else
 				vm.banned=false;
 	});
-});
+})
+

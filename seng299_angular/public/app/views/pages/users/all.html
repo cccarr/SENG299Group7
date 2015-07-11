@@ -1,6 +1,7 @@
 <div class="jumbotron" ng-if="!main.user.isAdmin"><h1>Access denied.</h1></div>
-
 <div ng-if="main.user.isAdmin">
+
+
 
 <div class="page-header">
 	<h1>
@@ -12,6 +13,9 @@
 	</h1>
 
 </div>
+
+
+<dir-pagination-controls></dir-pagination-controls>
 
 <table class="table table-bordered table-striped">
 	<thead>
@@ -26,7 +30,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="person in user.users">
+		<tr dir-paginate="person in user.users | itemsPerPage: 5">
 			<td class="col-sm-2">{{ person._id }}</td>
 			<td>{{ person.name }}</td>
 
@@ -47,6 +51,8 @@
 		</tr>
 	</tbody>
 </table>
+
+<dir-pagination-controls></dir-pagination-controls>
 
 </div>
 
