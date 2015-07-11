@@ -45,7 +45,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		
+			
 		<!-- Only show reservations that belong to this user -->
 		<tr ng-repeat="booking in res.reservations" ng-if="booking.user_id == main.user.id">
 
@@ -54,7 +54,7 @@
 				<td>{{ booking.description }}</td>
 			
 				<td class="col-sm-1">
-					<a href="#" ng-click="reservation.deleteUserReservation(booking._id)" class="btn btn-primary">Delete</a>
+					<a ng-click="res.deleteUserReservation(booking._id, booking.user_id)" class="btn btn-primary">Delete</a>
 				</td>
 
 			</div>
