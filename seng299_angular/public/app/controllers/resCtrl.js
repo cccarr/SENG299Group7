@@ -46,7 +46,7 @@ angular.module('resCtrl', ['reservationService'])
 
 				// bind the reservations that come back to vm.reservations
 				vm.reservations = data;
-				console.log(vm.reservations);
+				//console.log(vm.reservations);
 				});
 	
 

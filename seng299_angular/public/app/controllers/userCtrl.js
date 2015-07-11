@@ -1,6 +1,6 @@
 angular.module('userCtrl', ['userService'])
 
-.controller('userController', function(User) {
+.controller('userController', function($location, User) {
 
 	var vm = this;
 
@@ -54,12 +54,14 @@ angular.module('userCtrl', ['userService'])
 				vm.processing = false;
 				vm.userData = {};
 				vm.message = data.message;
+
+				$location.path('/');
 			});
 	}
 			
 })	
 
-.controller('userEditController', function(User,$routeParams) {
+.controller('userEditController', function(User,$routeParams, $location) {
 
 	var vm = this;
 
@@ -100,6 +102,8 @@ angular.module('userCtrl', ['userService'])
 			.success(function(data) {
 				vm.userData = data;
 				vm.message = data.message;
+ 				
+				$location.path('/users/' + $routeParams.user_id);
 			});
 	}
 })
