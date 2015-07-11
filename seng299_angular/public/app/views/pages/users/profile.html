@@ -2,7 +2,7 @@
 <div class="jumbotron">
 
 <!-- get the logged in user as the user in the controller -->
-<div class="page-header" ng-init="user.getUser(main.user.id)">
+<div class="page-header">
 	
 	<h1>{{ user.userData.username }} </h1> 
 	
@@ -14,7 +14,8 @@
 	</table>
 
 	<p>{{ user.userData.description }}</p>
-	<a href="/users/{{ main.user.id }}/edit" class="btn btn-large">Edit your information</a>
+
+	<a ng-if="(main.user.id == user.userData._id) || main.user.isAdmin" href="/users/{{ main.user.id }}/edit" class="btn btn-large">Edit information</a>
 
 	<hr>
 
@@ -33,7 +34,7 @@
 </div>
 
 
-<h3>Your Reservations</h3>
+<h3>Reservations</h3>
 
 	<table class="table table-bordered table-striped" ng-controller="reservationController as res">
 	<thead>
