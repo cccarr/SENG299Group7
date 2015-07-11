@@ -1,4 +1,4 @@
-angular.module('userCtrl', ['userService'])
+angular.module('userCtrl', ['userService','authService'])
 
 .controller('userController', function($location, User) {
 
@@ -36,7 +36,7 @@ angular.module('userCtrl', ['userService'])
 	};
 })
 
-.controller('userCreateController', function(User, $location) {
+.controller('userCreateController', function(User,Auth, $location) {
 	
 	var vm = this;
 
