@@ -30,6 +30,26 @@ width:60px;
 margin-right: 10px;
 }
 
+.btn[disabled] {
+  opacity:0.90;
+  filter:alpha(opacity=90);
+  background-color:#690000 !important;
+  color:#dfdfdf;
+
+}
+  .full button span {
+    background-color:red;
+    border-radius:32px;
+    color:black;
+  }
+  .partially button span {
+    background-color:yellow;
+    border-radius:32px;
+    color:black;
+  }
+.ui-datepicker-week-end{color: #c0c0c0 !important;}
+div#ui-datepicker-div.ui-datepicker{color: #c0c0c0;} div#ui-datepicker-div.ui-datepicker:hover{cursor: default !important;}
+.ui-datepicker-calendar th{color: #222222 !important;}
 /* ANIMATIONS
 ====================== */
 .spinner {

@@ -1,4 +1,4 @@
-angular.module('resCtrl', ['reservationService'])
+angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 .controller('reservationController', function(Reservation,User) {
 
 		var vm = this;
@@ -9,6 +9,8 @@ angular.module('resCtrl', ['reservationService'])
 			vm.temp_name = "booth name";
 
 		
+
+
 		vm.getBoothName = function(booth_id) {
 		var dict = {"5585d170e4b000778c02c05d": "Lunch Booth 1",
 			    "5594725fe4b05a4f296971b5": "Lunch Booth 2", 
@@ -38,6 +40,29 @@ angular.module('resCtrl', ['reservationService'])
 		}
 
 		// grab all the reservations at page load
+		User.all()
+		.success(function(data) {
+
+				// when all the reservations come back, remove the processing variable
+				vm.processing = false;
+
+				// bind the reservations that come back to vm.reservations
+				vm.users = data;
+				console.log(vm.users);
+				});
+
+		vm.getUserName = function(user_id) {
+			var log=[];
+			var username="";
+			angular.forEach(vm.users, function(user,key) {
+			  if(user._id==user_id) {
+				console.log("HERE"+user.username);
+				username =user.username
+				}
+			},log);
+			return username;
+		};
+
 		Reservation.all()
 		.success(function(data) {
 
@@ -102,22 +127,99 @@ angular.module('resCtrl', ['reservationService'])
 
 								});
 				});
+
 		};
 })
 
+.controller('reservationCreateController', function(Reservation,Booth,User, $location,$timeout,$scope,$modal) {
 
-.controller('reservationCreateController', function(Reservation,Booth,User, $location) {
+	var vm = this;
+	vm.reservationData = "";
+	    vm.reservationData.dt_start = new Date();
+	 $scope.today = function() {
+	    vm.reservationData.dt_start = new Date();
+	  };
+	  $scope.today();
 
-		var vm = this;
+	  $scope.showWeeks = true;
+	  $scope.toggleWeeks = function () {
+	    $scope.showWeeks = ! $scope.showWeeks;
+	  };
 
+	  $scope.clear = function () {
+	    $scope.dt = null;
+	  };
+
+	  // Disable weekend selection
+	  $scope.disabled = function(date, mode) {
+	    return ( mode === 'day' && ( date.getDay() === 1 ) );
+	  };
+
+	  $scope.toggleMin = function() {
+	    $scope.minDate = ( $scope.minDate ) ? null : new Date();
+	  };
+	  $scope.toggleMin();
+
+	  $scope.open = function($event) {
+	    $event.preventDefault();
+	    $event.stopPropagation();
+	      $scope.opened = true;
+	  };
+
+	  $scope.dateOptions = {
+	    'year-format': "'yy'",
+	    'starting-day': 1
+	  };
+
+
+	$scope.getDayClass = function(date, mode) {
+	    if (mode === 'day') {
+	      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+	      for (var i=0;i<$scope.events.length;i++){
+		var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+		}
+	    }
+	}
 		// variable to hide/show elements of the view
 		// differentiates between create or edit pages
 		vm.type = 'create';
-
 		Booth.all()
 		.success(function(data) {
 				vm.booths = data;
-				});
+		});
+		$scope.status = {
+		    isopen: false
+		  };
+
+		  $scope.toggled = function(open) {
+		  };
+
+		  $scope.toggleDropdown = function($event) {
+		    $event.preventDefault();
+		    $event.stopPropagation();
+		    $scope.status.isopen = !$scope.status.isopen;
+		  };
+		
+		vm.time  = { "10": "10",
+			     "2": "2", 
+		}
+
+		vm.setTime = function(time) {
+			console.log("here"+time);
+			vm.reservationData.dt_start.setHours(time,0,0,0);
+			console.log("here"+vm.reservationData.dt_start);
+			
+		}
+
+		vm.getResForDay = function(dt_start) {
+			Reservation.getForDay(dt_start)
+			.success(function(data) {
+				vm.reservationsForDay=data;
+				console.log(data);
+			});
+		}	
+
 		vm.getUser = function(user_id) {
 			User.get(user_id)
 			.success(function(data) {
@@ -134,7 +236,6 @@ angular.module('resCtrl', ['reservationService'])
 				}
 			});
 		}
-
 
 
 		// function to create a reservation
@@ -188,4 +289,5 @@ angular.module('resCtrl', ['reservationService'])
 				vm.message = data.message;
 			});
 	}
-});
+})
+

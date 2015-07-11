@@ -304,6 +304,16 @@ module.exports = function(app, express) {
 				res.json(reservations);
 			});
 		})
+	
+	apiRouter.route('/reservationsForDay/:dt_start')
+		.get(function(req, res) {
+			Reservation.find({$where : 'return this.dt_start.getMonth() == '+dt_start.getMonth()+' AND this.dt_start.getYear() == '+dt_start.getYear()+' AND this.dt_start.getDay() == '+dt_start.getDay()}, function(err, reservations) {
+				if (err) res.send(err);
+
+				// return that reservation
+				res.json(reservations);
+			});
+		})
 	apiRouter.route('/booths')
 
 		// create a booth (accessed at POST http://localhost:8080/booths)

@@ -1,6 +1,6 @@
 <div class="page-header">
 	<h1>
-		Reservations 
+		Reservation Management
 		<a href="/reservations/create" class="btn btn-default">
 			<span class="glyphicon glyphicon-plus"></span> 
 			New Reservation
@@ -22,9 +22,9 @@
 	<tbody>
 		<tr ng-repeat="booking in reservation.reservations">
 			<td>{{ booking._id }}</td>
-			<td>{{ booking.booth_id }}</td>
-			<td>{{ booking.user_id }}</td>
-			<td>{{ booking.dt_start }}</td>
+			<td>{{ reservation.getBoothName(booking.booth_id) }}</td>
+			<td>{{ reservation.getUserName(booking.user_id) }}</td>
+			<td>{{booking.dt_start | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</td>
 			<td class="col-sm-2">
 				<a href="#" ng-click="reservation.deleteReservation(booking._id)" class="btn btn-primary">Delete</a>
 			</td>
