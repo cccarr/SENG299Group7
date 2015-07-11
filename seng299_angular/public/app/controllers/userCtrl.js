@@ -99,6 +99,7 @@ angular.module('userCtrl', ['userService'])
 		User.edit(vm.userData,$routeParams.user_id)
 			.success(function(data) {
 				vm.userData = data;
+				vm.message = data.message;
 			});
 	}
 })
