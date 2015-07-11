@@ -307,7 +307,8 @@ module.exports = function(app, express) {
 	
 	apiRouter.route('/reservationsForDay/:dt_start')
 		.get(function(req, res) {
-			Reservation.find({$where : 'return this.dt_start.getMonth() == '+dt_start.getMonth()+' AND this.dt_start.getYear() == '+dt_start.getYear()+' AND this.dt_start.getDay() == '+dt_start.getDay()}, function(err, reservations) {
+			date= new Date(req.params.dt_start);
+			Reservation.find({'dt_start' : date}, function(err, reservations) {
 				if (err) res.send(err);
 
 				// return that reservation

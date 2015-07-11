@@ -138,10 +138,11 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 	    vm.reservationData.dt_start = new Date();
 	 $scope.today = function() {
 	    vm.reservationData.dt_start = new Date();
+	    console.log(vm.reservationData.dt_start);
 	  };
 	  $scope.today();
 
-	  $scope.showWeeks = true;
+	  $scope.showWeeks = false;
 	  $scope.toggleWeeks = function () {
 	    $scope.showWeeks = ! $scope.showWeeks;
 	  };
@@ -168,7 +169,7 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 
 	  $scope.dateOptions = {
 	    'year-format': "'yy'",
-	    'starting-day': 1
+	    'starting-day': 2
 	  };
 
 
@@ -177,17 +178,13 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 	      var dayToCheck = new Date(date).setHours(0,0,0,0);
 
 	      for (var i=0;i<$scope.events.length;i++){
-		var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+		vm.reservationData.dt_start = new Date($scope.events[i].date).setHours(0,0,0,0);
 		}
 	    }
 	}
 		// variable to hide/show elements of the view
 		// differentiates between create or edit pages
 		vm.type = 'create';
-		Booth.all()
-		.success(function(data) {
-				vm.booths = data;
-		});
 		$scope.status = {
 		    isopen: false
 		  };
@@ -200,23 +197,47 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		    $event.stopPropagation();
 		    $scope.status.isopen = !$scope.status.isopen;
 		  };
-		
+
+	$scope.$watch(function(scope) { return vm.reservationData.dt_start },
+              vm.getResForDay();
+             );
+	
 		vm.time  = { "10": "10",
 			     "2": "2", 
 		}
 
-		vm.setTime = function(time) {
-			console.log("here"+time);
+		setTime = function(time) {
 			vm.reservationData.dt_start.setHours(time,0,0,0);
 			console.log("here"+vm.reservationData.dt_start);
 			
 		}
 
-		vm.getResForDay = function(dt_start) {
-			Reservation.getForDay(dt_start)
+		Booth.all()
+		.success(function(data) {
+				vm.booths = data;
+		});
+
+		vm.getResForDay = function(time) {
+			setTime(time);
+			Booth.all()
 			.success(function(data) {
-				vm.reservationsForDay=data;
-				console.log(data);
+					vm.booths = data;
+					vm.reservationData.dt_start = new Date(vm.reservationData.dt_start);
+					Reservation.getForDay(vm.reservationData.dt_start)
+					.success(function(data) {
+						angular.forEach(data,function(res) {
+							var i = 0;
+							angular.forEach(vm.booths, function(booth) {
+							if(res.booth_id==booth._id){
+								vm.booths.splice(i,1);
+							}
+								console.log(vm.booths);
+							i =i+1;
+							});
+						});
+						console.log(vm.booths);
+						console.log(data);
+					});
 			});
 		}	
 
@@ -242,7 +263,6 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		vm.saveReservation = function() {
 			vm.processing = true;
 			vm.message = '';
-			vm.reservationData.dt_start = new Date(vm.reservationData.dt_start)
 			// use the create function in the reservationService
 			if(vm.banned){
 			console.log("Banned user tried to create a reservation");
@@ -251,7 +271,6 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 			Reservation.create(vm.reservationData)
 			.success(function(data) {
 					vm.processing = false;
-					vm.reservationData = {};
 					vm.message = data.message;
 					});
 			}

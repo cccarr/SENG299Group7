@@ -26,24 +26,24 @@
 
 
 	</div>
-	<div class="form-group">
+	<div class="form-group" ng-init="today()">
 		<div class="col-sm-offset-2 col-sm-8">
 
 		    <div class="form-horizontal">
 			<datepicker ng-model="reservation.reservationData.dt_start" date-disabled="disabled(date,mode)"min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)" ng-click="reservation.getReservationByDay(reservation.reservationData.dt_start)"></datepicker>
+		     <span class="dropdown" dropdown on-toggle="toggled(open)">
+			 <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+				Select a Time <span class="caret"></span>
+			</button>
+		      <ul class="dropdown-menu">
+			<li ng-repeat="choice in reservation.time">
+			  <a ng-click="reservation.getResForDay(choice)">{{choice}}</a>
+			</li>
+		      </ul>
+		    </span>	
 		    </div>
 		</div>
 	</div>
-     <span class="dropdown" dropdown on-toggle="toggled(open)">
-      <a href class="dropdown-toggle" dropdown-toggle>
-        Pick a Time
-      </a>
-      <ul class="dropdown-menu">
-        <li ng-repeat="choice in reservation.time">
-          <a ng-click="reservation.setTime(choice)">{{choice}}</a>
-        </li>
-      </ul>
-    </span>	
 
 	<div class="form-group">
 	<div class="col-sm-offset-2 col-sm-6">
