@@ -7,14 +7,13 @@ var UserSchema   = new Schema({
 	name: String,
 	phone: String,
 	email: String,
-	username: { type: String, required: true },
+	username: { type: String, required: true, index: { unique: true }},
 	password: { type: String, required: true, select: false },
 	description: String,
 	dt_ban_end: String,
 	security_question: String,
 	security_answer: String,
-	isAdmin: Boolean	
-
+	isAdmin: Boolean
 });
 
 

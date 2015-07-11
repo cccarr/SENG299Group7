@@ -10,8 +10,6 @@ var superSecret = config.secret;
 
 module.exports = function(app, express) {
 
-
-
 	var apiRouter = express.Router();
 	
 	// route to authenticate a user (POST http://localhost:8080/api/authenticate)
