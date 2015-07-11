@@ -39,6 +39,11 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 			});
 		}
 
+
+		// get user from route params
+
+
+
 		// grab all the reservations at page load
 		User.all()
 		.success(function(data) {
@@ -93,7 +98,9 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 						});
 		};
 
-		vm.deleteUserReservation = function(id) {
+		vm.deleteUserReservation = function(id, user) {
+
+			vm.user = user;
 			
 			vm.processing = true;
 			Reservation.get(id)
@@ -124,12 +131,12 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 										vm.processing = false;
 										vm.reservations = data;
 										});
-
 								});
 				});
 
 		};
 })
+
 
 .controller('reservationCreateController', function(Reservation,Booth,User, $location,$timeout,$scope,$modal) {
 
