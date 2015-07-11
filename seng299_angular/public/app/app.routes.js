@@ -5,13 +5,12 @@ angular.module('app.routes', ['ngRoute'])
 
 	$routeProvider
 
-	// Route for home page
-	.when("/", {
-		templateUrl: 'app/views/pages/home.html',
-		controller: 'mainController',
-		controllerAs: 'main'
+// route for the home page
+	.when('/', {
+		templateUrl : 'app/views/pages/home.html'
 	})
 
+<<<<<<< HEAD
 	.when("/about", {
 		templateUrl: 'app/views/pages/about.html'
  	})
@@ -21,6 +20,16 @@ angular.module('app.routes', ['ngRoute'])
    		controller  : 'mainController',
     	controllerAs: 'login'
 	})
+=======
+	// login page
+	.when('/login', {
+		templateUrl : 'app/views/pages/login.html',
+		controller  : 'mainController',
+		controllerAs: 'login'
+	})
+ 
+
+>>>>>>> 523a462986137c02ddf9adead556e2f1ee36fbe9
 
 	.when("/users", {
 		templateUrl: 'app/views/pages/users/all.html',
