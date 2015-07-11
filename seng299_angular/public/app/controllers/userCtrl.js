@@ -44,6 +44,7 @@ angular.module('userCtrl', ['userService'])
 	// differentiates between create or edit pages
 	vm.type = 'create';
 
+	vm.loggedIn = Auth.isLoggedIn();
 	// function to create a user
 	vm.saveUser = function() {
 		vm.processing = true;
@@ -54,8 +55,11 @@ angular.module('userCtrl', ['userService'])
 				vm.processing = false;
 				vm.userData = {};
 				vm.message = data.message;
-
-				$location.path('/users');
+			  	if(vm.loggedIn)			
+					$location.path('/users');
+				else
+					$location.path('/login');
+					
 			});
 	}
 			

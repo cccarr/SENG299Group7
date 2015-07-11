@@ -134,11 +134,8 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 .controller('reservationCreateController', function(Reservation,Booth,User, $location,$timeout,$scope,$modal) {
 
 	var vm = this;
-	vm.reservationData = "";
-	    vm.reservationData.dt_start = new Date();
 	 $scope.today = function() {
-	    vm.reservationData.dt_start = new Date();
-	    console.log(vm.reservationData.dt_start);
+	    $scope.dt = new Date();
 	  };
 	  $scope.today();
 
@@ -169,19 +166,32 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 
 	  $scope.dateOptions = {
 	    'year-format': "'yy'",
-	    'starting-day': 2
+	    'starting-day': 1
 	  };
 
+		$scope.$watch('dt',function() {
+			Booth.all()
+			.success(function(data) {
+					vm.booths = data;
+						console.log(vm.booths);
+					Reservation.getForDay($scope.dt)
+					.success(function(data) {
+						angular.forEach(data,function(res) {
+							var i = 0;
+							angular.forEach(vm.booths, function(booth) {
+							if(res.booth_id==booth._id){
+								vm.booths.splice(i,1);
+							}
+								console.log(vm.booths);
+							i =i+1;
+							});
+						});
+						console.log(vm.booths);
+						console.log(data);
+					});
+			});
+		});	
 
-	$scope.getDayClass = function(date, mode) {
-	    if (mode === 'day') {
-	      var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-	      for (var i=0;i<$scope.events.length;i++){
-		vm.reservationData.dt_start = new Date($scope.events[i].date).setHours(0,0,0,0);
-		}
-	    }
-	}
 		// variable to hide/show elements of the view
 		// differentiates between create or edit pages
 		vm.type = 'create';
@@ -198,17 +208,15 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		    $scope.status.isopen = !$scope.status.isopen;
 		  };
 
-	$scope.$watch(function(scope) { return vm.reservationData.dt_start },
-              vm.getResForDay();
-             );
 	
 		vm.time  = { "10": "10",
 			     "2": "2", 
 		}
 
-		setTime = function(time) {
-			vm.reservationData.dt_start.setHours(time,0,0,0);
-			console.log("here"+vm.reservationData.dt_start);
+		vm.setTime = function(time) {
+			$scope.dt = new Date($scope.dt);
+			$scope.dt.setHours(time,0,0,0);
+			console.log("here"+$scope.dt);
 			
 		}
 
@@ -217,29 +225,6 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 				vm.booths = data;
 		});
 
-		vm.getResForDay = function(time) {
-			setTime(time);
-			Booth.all()
-			.success(function(data) {
-					vm.booths = data;
-					vm.reservationData.dt_start = new Date(vm.reservationData.dt_start);
-					Reservation.getForDay(vm.reservationData.dt_start)
-					.success(function(data) {
-						angular.forEach(data,function(res) {
-							var i = 0;
-							angular.forEach(vm.booths, function(booth) {
-							if(res.booth_id==booth._id){
-								vm.booths.splice(i,1);
-							}
-								console.log(vm.booths);
-							i =i+1;
-							});
-						});
-						console.log(vm.booths);
-						console.log(data);
-					});
-			});
-		}	
 
 		vm.getUser = function(user_id) {
 			User.get(user_id)
@@ -263,6 +248,7 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		vm.saveReservation = function() {
 			vm.processing = true;
 			vm.message = '';
+			vm.reservationData.dt_start = $scope.dt;
 			// use the create function in the reservationService
 			if(vm.banned){
 			console.log("Banned user tried to create a reservation");

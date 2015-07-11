@@ -412,6 +412,7 @@ module.exports = function(app, express) {
 	  } else {
 
 	  	console.log("permission denied. User not admin.");
+		
 	  }
 	});
 
