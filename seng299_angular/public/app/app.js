@@ -12,4 +12,6 @@ angular.module('userApp', ['ui.bootstrap','app.routes', 'authService','mainCtrl'
     amMoment.changeLocale('CA');
 })
 
-
+.constant('angularMomentConfig', {
+    preprocess: 'utc', // optional
+});

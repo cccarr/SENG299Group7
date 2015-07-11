@@ -24,7 +24,7 @@
 			<td>{{ booking._id }}</td>
 			<td>{{ reservation.getBoothName(booking.booth_id) }}</td>
 			<td>{{ reservation.getUserName(booking.user_id) }}</td>
-			<td>{{booking.dt_start | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</td>
+			<td>{{ booking.dt_start | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</td>
 			<td class="col-sm-2">
 				<a href="#" ng-click="reservation.deleteReservation(booking._id)" class="btn btn-primary">Delete</a>
 			</td>

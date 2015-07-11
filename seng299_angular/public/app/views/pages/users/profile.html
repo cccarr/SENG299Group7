@@ -50,7 +50,8 @@
 		<tr ng-repeat="booking in res.reservations" ng-if="booking.user_id == main.user.id">
 
 				<td>{{ res.getBoothName(booking.booth_id) }}</td>
-				<td>{{ booking.dt_start }}</td>
+				<td>{{ booking.dt_start | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}</td>
+
 				<td>{{ booking.description }}</td>
 			
 				<td class="col-sm-1">
