@@ -14,7 +14,7 @@
 	<p ng-if="user.banned">You are currently banned. Time until ban ends: {{ user.userBanMilli | amDifference : user.currentDateMilli : 'hour' }} hour(s)</span>
 </div>
 
-
+<div class='ReservationTable' ng-if="!main.user.isAdmin"> 
 <h3>Your Reservations</h3>
 
 	<table class="table table-bordered table-striped" ng-controller="reservationController as res">
@@ -44,5 +44,5 @@
 		</tr>
 	</tbody>
 </table>
-
+</div>
 </div>
