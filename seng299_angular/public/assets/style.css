@@ -6,6 +6,10 @@ td.col-sm-1 {
 	text-align: center;
 }
 
+.pagination {
+	margin: auto;
+}
+
 /* HEADER 
 ===================== */
 header .navbar 		{ 

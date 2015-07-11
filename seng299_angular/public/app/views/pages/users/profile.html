@@ -14,7 +14,7 @@
 
 	<p>{{ user.userData.description }}</p>
 
-	<a ng-if="(main.user.id == user.userData._id) || main.user.isAdmin" href="/users/{{ main.user.id }}/edit" class="btn btn-large">Edit information</a>
+	<a ng-if="(main.user.id == user.userData._id) || main.user.isAdmin" href="/users/{{ user.userData._id }}/edit" class="btn btn-large">Edit information</a>
 
 	<hr>
 
@@ -26,7 +26,7 @@
 	</p>
 
 	<p><strong>Ban status:</strong> 
-		<span ng-if="user.banned">Banned. Time until ban ends:  {{ user.userBanMilli | amDifference : user.currentDate : 'days' }} day(s)</span>
+		<span ng-if="user.banned">Banned. Time until ban ends: {{ user.userBanMilli | amDifference : user.currentDateMilli : 'hour' }} hour(s)</span>
 		<span ng-if="!user.banned">Not banned. You are free to make reservations.</span>
 	</p>
 

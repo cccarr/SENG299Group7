@@ -4,17 +4,18 @@
   "description": "Farmer's Market Project",
   "main": "server.js",
   "dependencies": {
-    "express": "~4.13.0",
-    "mongoose": "~4.0.6",
-    "connect-flash": "~0.1.1",
-    "jsonwebtoken": "^1.2.0",
-    "bcrypt-nodejs": "0.0.3",
-    "morgan": "~1.6.0",
-    "body-parser": "~1.13.1",
-    "cookie-parser": "~1.3.5",
-    "method-override": "~2.3.3",
-    "express-session": "~1.11.3",
     "angular-moment": "~0.10.1",
-    "moment": "~2.10.3"
+    "angular-utils-pagination": "^0.8.2",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.13.1",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "~1.3.5",
+    "express": "~4.13.0",
+    "express-session": "~1.11.3",
+    "jsonwebtoken": "^1.2.0",
+    "method-override": "~2.3.3",
+    "moment": "~2.10.3",
+    "mongoose": "~4.0.6",
+    "morgan": "~1.6.0"
   }
 }
