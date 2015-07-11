@@ -19,8 +19,9 @@
 			<th>_id</th>
 			<th>Name</th>
 			<th>Username</th>
-			<th>Delete</th>
+			<th>Profile</th>
 			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,13 +29,19 @@
 			<td>{{ person._id }}</td>
 			<td>{{ person.dt_ban_end }}</td>
 			<td>{{ person.username }}</td>
-			<td class="col-sm-2">
-				<a href="#" ng-click="user.deleteUser(person._id)" class="btn btn-primary">Delete</a>
+			
+			<td class="col-sm-1">
+				<a href="/users/{{person._id}}" class="btn btn-primary">Profile</a>
 			</td>
-			<td class="col-sm-2">
-				<a href="/users/{{person._id}}" class="btn btn-primary">Edit</a>
+			
+			
+			<td class="col-sm-1">
+				<a href="/users/{{person._id}}/edit" class="btn btn-primary">Edit</a>
 			</td>
 
+			<td class="col-sm-1">
+				<a href="#" ng-click="user.deleteUser(person._id)" class="btn btn-primary">Delete</a>
+			</td>
 		</tr>
 	</tbody>
 </table>

@@ -2,6 +2,10 @@ main 					{
 	padding-top:30px;	
 }
 
+td.col-sm-1 {
+	text-align: center;
+}
+
 /* HEADER 
 ===================== */
 header .navbar 		{ 

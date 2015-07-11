@@ -45,17 +45,24 @@ angular.module('app.routes', ['ngRoute'])
 		controllerAs: 'user'
 	})
 
+	.when("/users/:user_id/edit", {
+		// the selected users edit page 
+		templateUrl: 'app/views/pages/users/single.html',
+		controller: 'userEditController',
+		controllerAs: 'user'
+	})
+
 	.when("/signup", {
 		templateUrl: 'app/views/pages/signup.html',
 		controller: 'userCreateController',
 		controllerAs: 'user'
 	})
 
-	.when("/profile", {
-		templateUrl: 'app/views/pages/profile.html',
-		controller: 'userEditController',
-		controllerAs: 'user'
-	})
+	// .when("/profile", {
+	// 	templateUrl: 'app/views/pages/profile.html',
+	// 	controller: 'userEditController',
+	// 	controllerAs: 'user'
+	// })
 
 	.when("/reservations", {
 		templateUrl: 'app/views/pages/reservations/all.html',

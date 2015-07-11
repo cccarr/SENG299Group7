@@ -7,14 +7,14 @@
 	<h1>{{ user.userData.username }} </h1> 
 	
 	<table id="user-info-table">
-		<tr><td>{{ user.userData.name }}</td>
+		<tr><td>{{ user.userData.name  }}</td>
 			<td>{{ user.userData.email }}</td>
 			<td>{{ user.userData.phone }}</td>
 		</tr>	
 	</table>
 
 	<p>{{ user.userData.description }}</p>
-	<a href="/users/{{ main.user.id }}" class="btn btn-large">Edit your information</a>
+	<a href="/users/{{ main.user.id }}/edit" class="btn btn-large">Edit your information</a>
 
 	<hr>
 
@@ -49,11 +49,11 @@
 		<!-- Only show reservations that belong to this user -->
 		<tr ng-repeat="booking in res.reservations" ng-if="booking.user_id == main.user.id">
 
-			
 				<td>{{ res.getBoothName(booking.booth_id) }}</td>
 				<td>{{ booking.dt_start }}</td>
 				<td>{{ booking.description }}</td>
-				<td class="col-sm-2 text-center">
+			
+				<td class="col-sm-1">
 					<a href="#" ng-click="reservation.deleteUserReservation(booking._id)" class="btn btn-primary">Delete</a>
 				</td>
 
