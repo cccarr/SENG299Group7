@@ -101,4 +101,44 @@ angular.module('userCtrl', ['userService'])
 				vm.userData = data;
 			});
 	}
+})
+
+
+.controller('userProfileController', function(User,$routeParams) {
+
+	var vm = this;
+
+	vm.getUser = function(user_id) {
+		User.get(user_id)
+			.success(function(data) {
+				vm.userData = data;
+				var userBan = new Date(data.dt_ban_end);
+				vm.currentDate= new Date();
+				vm.currentDateMilli= vm.currentDate.getTime()-25200000;
+				vm.userBanMilli= userBan.getTime();
+				if((vm.userBanMilli - vm.currentDate.getTime())>0)
+					vm.banned=true;
+				else
+					vm.banned=false;
+					
+			});
+	}
+
+	// if user data wasn't set by visiting profile...
+	if($routeParams.user_id) {
+		User.get($routeParams.user_id)
+			.success(function(data) {
+				vm.userData = data;
+		});		
+	}
+
+	vm.saveUser = function() {
+		vm.processing = true;
+		vm.message = '';
+
+		User.edit(vm.userData,$routeParams.user_id)
+			.success(function(data) {
+				vm.userData = data;
+			});
+	}
 });

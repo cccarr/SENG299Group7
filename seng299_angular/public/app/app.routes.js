@@ -35,8 +35,13 @@ angular.module('app.routes', ['ngRoute'])
 	})
 	
 	.when("/users/:user_id", {
-		templateUrl: 'app/views/pages/users/single.html',
-		controller: 'userEditController',
+		// templateUrl: 'app/views/pages/users/single.html',
+		// controller: 'userEditController',
+		// controllerAs: 'user'
+
+		// the selected user's profile
+		templateUrl: 'app/views/pages/users/profile.html',
+		controller: 'userProfileController',
 		controllerAs: 'user'
 	})
 
