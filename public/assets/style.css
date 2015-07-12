@@ -92,27 +92,38 @@ div#ui-datepicker-div.ui-datepicker{color: #c0c0c0;} div#ui-datepicker-div.ui-da
 	padding: 10px;
 }
 .Merchandise{
-background-image: -webkit-radial-gradient(circle, #428bca 80%, #3276b1 81%);
+background-image: -webkit-radial-gradient(circle, #428bca 80%, #3276b1 81%)!important;
 background-color:maroon!important;
+border-color:#428bca;
+background-image: radial-gradient(circle, #428bca 80%, #3276b1 81%);
 }
 .Merchandise:hover{
-background-image: -webkit-radial-gradient(circle, #428bca 80%, maroon 81%);
+background-image: -webkit-radial-gradient(circle, #428bca 80%, maroon 81%)!important;
 background-color:maroon!important;
-border-color:maroon!important;
+background-image: radial-gradient(circle, #428bca 80%, maroon 81%);
+border-color:#428bca;
 }
 .Lunch{
-background-image: -webkit-radial-gradient(circle, indigo 80%, indigo 81%);
+background-image: -webkit-radial-gradient(circle, indigo 80%, indigo 81%)!important;
 background-color:maroon!important;
+background-image: radial-gradient(circle, indigo 80%, indigo 81%);
+border-color:indigo;
 }
 .Lunch:hover{
-background-image: -webkit-radial-gradient(circle, indigo 80%, maroon 81%);
+background-image: -webkit-radial-gradient(circle, indigo 80%, maroon 81%)!important;
 background-color:maroon!important;
+background-image: radial-gradient(circle, indigo 80%, maroon 81%);
+border-color:indigo;
 }
 .Produce{
-background-image: -webkit-radial-gradient(circle, orange 80%, #C35817 81%);
+background-image: -webkit-radial-gradient(circle, orange 80%, #C35817 81%)!important;
 background-color:maroon!important;
+background-image: radial-gradient(circle, orange 80%, #C35817 81%);
+border-color:orange;
 }
 .Produce:hover{
-background-image: -webkit-radial-gradient(circle, orange 80%, maroon 81%);
+background-image: -webkit-radial-gradient(circle, orange 80%, maroon 81%)!important;
 background-color:maroon!important;
+background-image: radial-gradient(circle, orange 80%, maroon 81%);
+border-color:orange;
 }
