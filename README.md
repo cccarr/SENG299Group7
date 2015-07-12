@@ -1,37 +1,15 @@
-# Working with git
- 
+# TODO:
 
-## GET THE REPO
+* Use moment to check user ban when deleting reservation (make new reservation delete function for users, leave current one for admin use)
+* Check if user is banned before he can create reservation
+* Integrate calender/booth map into reservation create
+* ~~Various Admin/User restrictions (/users,profile, editing users)~~
+* Check if booths are available on a given day.
 
-git clone https://github.com/cccarr/SENG299Group7.git
-
-
-## GIT MERGING:
-### CHECKOUT A NEW BRANCH:
-
-git checkout -b \<branch_name\>
-
-
-### OR CHECKOUT AN EXISTING BRANCH:
-
-git checkout \<existing_branch_name\>
-
-
-### MAKE SOME CHANGES TO A FILE CALLED "foo.txt"
-
-* git add foo.txt
-<<<<<<< HEAD
-* git -m "Some commit message"
-* git push origin \<branch_name\>
-=======
-* git commit -m "Some commit message"
-* git push origin "branch name"
->>>>>>> master
-* git pull
-* git merge master
-* git checkout master
-* git merge "branch name"
-
-
+## OPTIONAL:
+* Security Q/A
+* About page
+* Offline functions
+* Pretty pictures
 
 
