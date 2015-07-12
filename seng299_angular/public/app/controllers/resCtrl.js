@@ -134,6 +134,7 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 .controller('reservationCreateController', function(Reservation,Booth,User, $location,$timeout,$scope,$modal) {
 
 	var vm = this;
+	vm.type = 'create';
 	$scope.today = function() {
 		$scope.dt = new Date();
 		if($scope.dt.getDay() == '0')
@@ -226,9 +227,6 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		});
 	};
 
-	// variable to hide/show elements of the view
-	// differentiates between create or edit pages
-	vm.type = 'create';
 	$scope.status = {
 	    isopen: false
 	};
@@ -300,10 +298,11 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 
 })	
 
-.controller('reservationEditController', function(Reservation,User,Booth,$routeParams,$timeout,$scope) {
+.controller('reservationEditController', function(Reservation,User,Booth,$location,$routeParams,$timeout,$scope) {
 
 	var vm = this;
 
+	vm.type = 'edit';
 	Reservation.get($routeParams.reservation_id)
 	.success(function(data) {
 		vm.reservationData = data;
@@ -419,8 +418,8 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 				angular.forEach(data,function(res) {
 					var i = 0;
 					angular.forEach(vm.booths, function(booth) {
-					if(res.dt_start==vm.reservationData.dt_start) {
-						if(res.booth_id == vm.reservationData.booth_id) {
+					if(res.dt_start==firstRes.dt_start) {
+						if(res.booth_id == firstRes.booth_id) {
 
 						}
 						else if(res.booth_id==booth._id){
@@ -465,18 +464,12 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		console.log($scope.dt)
 	}
 
-	Booth.all()
-	.success(function(data) {
-		vm.booths = data;
-	});
-
 
 	vm.getUser = function(user_id) {
 	}
 
 		// variable to hide/show elements of the view
 		// differentiates between create or edit pages
-	vm.type = 'edit';
 
 	
 
@@ -494,7 +487,9 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 				.success(function(data) {
 					vm.processing = false;
 					vm.message = data.message;
+					firstRes=vm.reservationData;
 					vm.getResForDay();
+					$location.path("/reservations");
 				});
 		}
 	}
