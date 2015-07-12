@@ -15,7 +15,7 @@
 </div>
 
 
-<dir-pagination-controls></dir-pagination-controls>
+<center><dir-pagination-controls></dir-pagination-controls></center>
 
 <table class="table table-bordered table-striped">
 	<thead>
@@ -30,7 +30,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr dir-paginate="person in user.users | itemsPerPage: 5">
+		<tr dir-paginate="person in user.users | itemsPerPage: 10">
 			<td class="col-sm-2">{{ person._id }}</td>
 			<td>{{ person.name }}</td>
 
@@ -52,7 +52,8 @@
 	</tbody>
 </table>
 
-<dir-pagination-controls></dir-pagination-controls>
+<center><dir-pagination-controls></dir-pagination-controls></center>
 
 </div>
 
+<hr>
