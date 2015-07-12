@@ -11,6 +11,60 @@ var superSecret = config.secret;
 module.exports = function(app, express) {
 
 	var apiRouter = express.Router();
+
+
+	// route the retrieve security question from username (POST http://localhost:8080/api/forgot)
+	apiRouter.post('/forgot', function(req, res) {
+
+		// find the user
+		User.findOne({
+			username: req.body.username
+		}).select("security_question security_answer _id").exec(function(err, user) {
+
+			if(err) throw err;
+
+			// no user with that username found
+			if(!user) {
+				res.json({
+					success: false,
+					message: 'User not found.'
+				});
+			} else if (user) {
+				// return the security question and answer
+				res.json({
+					success: true,
+					message: 'User found',
+					question: user.security_question,
+					answer: user.security_answer,
+					user_id: user._id
+				});
+			}
+
+		});
+	});
+
+	// route to reset a user's password 
+	apiRouter.put('/forgot', function(req, res) {
+
+		// copy the code for updating a user
+		User.findById(req.body.user_id, function(err, user) {
+
+			if (err) res.send(err);
+
+			// reset the password of the user 
+			user.password = "password";
+
+			// save the user
+			user.save(function(err) {
+				if (err) res.send(err);
+
+				// return a message
+				res.json({ message: 'Password reset to password.' });
+			});
+
+		});
+
+	})
 	
 	// route to authenticate a user (POST http://localhost:8080/api/authenticate)
 	apiRouter.post('/authenticate', function(req, res) {
@@ -151,19 +205,7 @@ module.exports = function(app, express) {
 	  }
 	});
 
-	// on routes that end in /users
 
-// apiRouter.route('/users')
-// 		// get all the users (accessed at GET http://localhost:8080/api/users)
-// 		.get(function(req, res) {
-
-// 			User.find({}, function(err, users) {
-// 				if (err) res.send(err);
-
-// 				// return the users
-// 				res.json(users);
-// 			});
-// 		});
 
 	// on routes that end in /users/:user_id
 	// ----------------------------------------------------

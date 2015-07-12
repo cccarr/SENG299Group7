@@ -1,8 +1,22 @@
+<!-- To do on this page 
+	* display error message div box 
+	* rest password to something (e.g. password)
+-->
+
 <div class="row col-md-6 col-md-offset-3">
 
 
 	<div class="jumbotron">
 		<h1>Forgot your password?</h1>
+
+			<div class="alert alert-danger" ng-if="login.error">
+				{{ login.error }}
+			</div>
+
+			<div class="alert alert-danger" ng-if="login.message">
+				{{ login.message }}
+			</div>
+
 
 		<form ng-submit="login.getSecurityQuestion()">
 			<div class="form-group">
@@ -13,12 +27,13 @@
 			<button type="submit" class="btn btn-block btn-primary">Retrieve security question</button>
 		</form>
 
-		<p>Security Question: {{ login.the_user }}</p>
+		<hr>
 
+		<p class="text-center"><em>{{ login.securityQuestion }}</em></p>
 
 
 		<!-- DISPLAY ONLY IF QUESTION RETRIEVED -->
-		<form ng-submit="login.compareAnswer()">
+		<form ng-submit="login.checkSecurityAnswer()" ng-if="login.securityQuestion">
 
 			<div class="form-group">
 				<label>Answer</label>

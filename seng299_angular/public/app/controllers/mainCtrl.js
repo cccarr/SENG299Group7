@@ -51,19 +51,39 @@ angular.module('mainCtrl', ['ui.bootstrap'])
 	};
 
 
-	// retrieve the security question of a suer 
+	// retrieve the security question of a user
+	// (mirrors doLogin above) 
 	vm.getSecurityQuestion = function() {
-		vm.the_username = vm.forgotData.username;
 
+		vm.processing = true;
 
-		vm.users = User.all();
-		for(user in vm.users) {
-			if (user.username == vm.the_username) {
-				console.log('user exists');
-			} else {
-				console.log('user does not exist');
-			}
-		}
+		Auth.getQuestion(vm.forgotData.username)
+			.success(function(data) {
+				vm.processing = false;
+
+				// if question successfully recieved, display it 
+				if(data.success) {
+					vm.error = '';
+					vm.securityQuestion = data.question;
+					vm.securityAnswer 	= data.answer;
+					vm.user_id 			= data.user_id;
+				} else {
+					vm.error = data.message;
+				}
+			});
 	}
+
+	vm.checkSecurityAnswer = function() {
+		if(vm.securityAnswer == vm.forgotData.answer) {
+			
+			// success 
+			Auth.resetPassword(vm.forgotData.username, vm.user_id);
+			vm.error = '';
+			vm.message = "Password reset to password.";
+		} else {
+			console.log("incorrect answer");
+			vm.error = "Answer is not correct";
+		}
+	} 
 
 });

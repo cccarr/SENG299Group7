@@ -48,6 +48,32 @@ angular.module('authService', [])
 			return $q.reject({ message: 'User has no token.' });		
 	};
 
+
+	// get the security question from a user name
+	// (mirrors login above) 
+	authFactory.getQuestion = function(username) {
+
+		// return the promise object and its data
+		return $http.post('/api/forgot', {
+			username: username
+		})
+			.success(function(data) {
+				return data;
+			});
+	}
+
+	authFactory.resetPassword = function(username, id) {
+
+		// return the promise object and its data
+		return $http.put('/api/forgot', {
+			username: username,
+			user_id: id
+		})
+			.success(function(data) {
+				return data;
+			});
+	}
+
 	// return auth factory object
 	return authFactory;
 
