@@ -1,11 +1,14 @@
-angular.module('resCtrl', ['reservationService','ui.bootstrap'])
-.controller('reservationController', function(Reservation,User) {
+angular.module('resCtrl', ['reservationService','ui.bootstrap', 'angularUtils.directives.dirPagination'])
+.controller('reservationController', function(Reservation,User,$scope) {
 
 		var vm = this;
 
 		// set a processing variable to show loading things
 		vm.processing = true;
- 
+ 		$scope.currentDate = new Date();
+ 		$scope.currentTime = $scope.currentDate.getTime();
+		console.log($scope.currentTime);
+	
 		vm.getBoothName = function(booth_id) {
 		var dict = {
 						"5585d170e4b000778c02c05d": "Lunch Booth 1",
@@ -52,15 +55,17 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 			var log=[];
 			var username="";
 			angular.forEach(vm.users, function(user,key) {
-			  if(user._id == user_id) {
-				console.log("HERE"+user.username);
-				username = user.username
-				}
+			console.log(user_id);
+			console.log(user._id);
+			if(user._id == user_id) {
+				username = user.username;
+			}
 			},log);
 			return username;
 		};
 
 
+		
 		Reservation.all()
 		.success(function(data) {
 
@@ -95,40 +100,40 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 			
 			User.get(user_id)
 				.success(function(data) {
-					vm.user = data;
-				});
+				vm.user = data;
 
-			vm.processing = true;
-			Reservation.get(id)
-				.success(function(data) {
-					vm.reservationToDel = data;
-					var currentDate = new Date();
-					var resDate = new Date(vm.reservationToDel.dt_start);
-					var timeDiff = resDate.getTime() - (currentDate.getTime()-28800000);
+				vm.processing = true;
+				Reservation.get(id)
+					.success(function(data) {
+						vm.reservationToDel = data;
+						var currentDate = new Date();
+						var resDate = new Date(vm.reservationToDel.dt_start);
+						var timeDiff = resDate.getTime() - (currentDate.getTime()-25200000);
 
-					if(timeDiff<86400000 && timeDiff>0) {
-					
-						var ban_end = currentDate.getTime()-25200000 + 172800000;
-						vm.user.dt_ban_end = new Date(ban_end);
-						User.edit(vm.user,vm.user._id)
-							.success(function(data) {
-								vm.userData = data;
-							});
-					}
-
-					Reservation.delete(id)
-						.success(function(data) {
-
-								// get all reservations to update the table
-								// you can also set up your api 
-								// to return the list of reservations with the delete call
-								Reservation.all()
+						if(timeDiff<86400000 && timeDiff>0) {
+						
+							var ban_end = currentDate.getTime()-25200000 + 172800000;
+							vm.user.dt_ban_end = new Date(ban_end);
+							User.edit(vm.user,vm.user._id)
 								.success(function(data) {
-										vm.processing = false;
-										vm.reservations = data;
-										});
-
+									vm.userData = data;
 								});
+						}
+
+						Reservation.delete(id)
+							.success(function(data) {
+
+									// get all reservations to update the table
+									// you can also set up your api 
+									// to return the list of reservations with the delete call
+									Reservation.all()
+									.success(function(data) {
+											vm.processing = false;
+											vm.reservations = data;
+											});
+
+									});
+					});
 				});
 
 		};

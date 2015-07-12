@@ -16,45 +16,52 @@
 
 	</div>
 	<div class="form-group" >
-		<div class="col-sm-offset-2 col-sm-8">
+		<div class="col-sm-12">
 
 		    <div class="form-horizontal">
-			<datepicker ng-model="dt" date-disabled="disabled(date,mode)"min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
-		     <span class="dropdown" dropdown on-toggle="toggled(open)">
-			 <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
-				Select a Time <span class="caret"></span>
-			</button>
-		      <ul class="dropdown-menu">
-
-			<li ng-if="dt.getDay() != '0' "ng-repeat="choice in reservation.time">
-			  <a ng-click="reservation.setTime(choice)">{{choice}}</a>
-			</li>
-			<li ng-if="dt.getDay() == '0' "ng-repeat="choice in reservation.timeSun">
-			  <a ng-click="reservation.setTime(choice)">{{choice}}</a>
-
-			</li>
-		      </ul>
-		       {{dt.getHours()}}:00 - {{dt.getHours()+4}}:00
-		    </span>
+		<center>	<datepicker ng-model="dt" date-disabled="disabled(date,mode)"min-date="minDate" show-weeks="true" style="margin:auto" custom-class="getDayClass(date, mode)"></datepicker>
+</center>
 		    </div>
 		</div>
+	<center>
+	     <span class="dropdown" dropdown on-toggle="toggled(open)">
+		 <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+			Select a Time <span class="caret"></span>
+		</button>
+	      <ul class="dropdown-menu">
+
+		<li ng-if="dt.getDay() != '0' "ng-repeat="choice in reservation.time">
+		  <a ng-click="reservation.setTime(choice)">{{choice}}</a>
+		</li>
+		<li ng-if="dt.getDay() == '0' "ng-repeat="choice in reservation.timeSun">
+		  <a ng-click="reservation.setTime(choice)">{{choice}}</a>
+
+		</li>
+	      </ul>
+		<strong>
+	       {{dt.getHours()}}:00 - {{dt.getHours()+4}}:00
+</strong>
+	    </span>
+	</center>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label">Booth</label>
+		<div class="col-sm-offset-2 col-sm-8">
+		<label class=" control-label">Selected Booth : {{booth_id.booth_title}}</label>
 		<div class="btn-group">
-			<li ng-repeat="booth in reservation.booths">
-			<label class="btn btn-primary" ng-model="$parent.booth_id" btn-radio="booth">
+			<ul style="display: inline"ng-repeat="booth in reservation.booths">
+			<label class="btn btn-primary" ng-model="$parent.booth_id" btn-radio="booth" style="width:200px; margin-top:20px" ng-class="booth.booth_title">
 			{{ booth.booth_title }}
 			</label>
 			<!--Drop down menu of booths-->
 				
-			</li>
+			</ul>
 
+		</div>
 		</div>
 	</div>
 
 	<div class="form-group">
-	<div class="col-sm-offset-2 col-sm-6">
+	<div class="col-sm-offset-2 col-sm-8">
 		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="reservation.type == 'create' && !reservation.banned">Create Reservation</button>
 		<button type="submit" class="btn btn-fail btn-lg btn-block" ng-if="reservation.type == 'create' && reservation.banned" disabled>Sorry, but you have been banned</button>
 		<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="reservation.type == 'edit'">Update Reservation</button>
