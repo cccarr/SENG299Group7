@@ -136,7 +136,6 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 	var vm = this;
 	 $scope.today = function() {
 	    $scope.dt = new Date();
-<<<<<<< HEAD
 	    if($scope.dt.getDay() == '0')
 	    {
 		$scope.dt.setHours(12);
@@ -147,8 +146,6 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 	    }
 
 
-=======
->>>>>>> master
 	  };
 	  $scope.today();
 
