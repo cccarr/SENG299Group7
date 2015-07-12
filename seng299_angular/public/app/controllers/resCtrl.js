@@ -138,14 +138,13 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 	    $scope.dt = new Date();
 	    if($scope.dt.getDay() == '0')
 	    {
-		$scope.dt.setHours(12);
+		$scope.dt.setHours(12,0,0,0);
 	    }
 	    else
 	    {
-		$scope.dt.setHours(10);
+		$scope.dt.setHours(10,0,0,0);
 	    }
-
-
+		console.log("HERE1"+$scope.dt);
 	  };
 	  $scope.today();
 
@@ -178,14 +177,14 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 	    'year-format': "'yy'",
 	    'starting-day': 1
 	  };
-
 	  
 		$scope.$watch('dt',function() {
 			Booth.all()
 			.success(function(data) {
 					vm.booths = data;
-						console.log(vm.booths);
-					Reservation.getForDay($scope.dt)
+					var date = new Date($scope.dt.getTime());
+					console.log("DATE"+date);
+					Reservation.getForDay(date)
 					.success(function(data) {
 						angular.forEach(data,function(res) {
 							var i = 0;
@@ -193,12 +192,11 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 							if(res.booth_id==booth._id){
 								vm.booths.splice(i,1);
 							}
-								console.log(vm.booths);
+								console.log(res.booth_id);
 							i =i+1;
 							});
 						});
 						$scope.booth_id=vm.booths[0];
-						console.log($scope.booth_id);
 						console.log(vm.booths);
 					});
 			});
@@ -207,8 +205,9 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 			Booth.all()
 			.success(function(data) {
 					vm.booths = data;
-						console.log(vm.booths);
-					Reservation.getForDay($scope.dt)
+						console.log("HERE2"+$scope.dt);
+					var date = new Date($scope.dt.getTime());
+					Reservation.getForDay(date)
 					.success(function(data) {
 						angular.forEach(data,function(res) {
 							var i = 0;
@@ -253,8 +252,7 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		vm.setTime = function(time) {
 			$scope.dt = new Date($scope.dt);
 			$scope.dt.setHours(time,0,0,0);
-			console.log("here"+$scope.dt);
-			
+			console.log($scope.dt)
 		}
 
 		Booth.all()
@@ -285,8 +283,8 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 		vm.saveReservation = function() {
 			vm.processing = true;
 			vm.message = '';
-			vm.reservationData.dt_start = new Date($scope.dt.getTime()-25200000);
-			vm.reservationData.booth_id = $scope.booth_id;
+			vm.reservationData.dt_start = $scope.dt;
+			vm.reservationData.booth_id = $scope.booth_id._id;
 			// use the create function in the reservationService
 			if(vm.banned){
 			console.log("Banned user tried to create a reservation");
@@ -297,7 +295,7 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap'])
 					vm.processing = false;
 					vm.message = data.message;
 					vm.getResForDay();
-					$location.path('/users/'+vm.reservationData.user_id);
+				//	$location.path('/users/'+vm.reservationData.user_id);
 					});
 			}
 		}

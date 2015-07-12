@@ -217,7 +217,8 @@ module.exports = function(app, express) {
 			var reservation = new Reservation();	
 			reservation.booth_id = req.body.booth_id; 
 			reservation.user_id = req.body.user_id;
-			reservation.dt_start = req.body.dt_start;  
+			var date = new Date(req.body.dt_start);  
+			reservation.dt_start = new Date(date.getTime()-25200000);  
 			reservation.dt_booked = req.body.dt_booked;
 			reservation.dt_cancelled = req.body.dt_cancelled;
 
