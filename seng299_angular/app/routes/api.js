@@ -1,9 +1,9 @@
-var bodyParser = require('body-parser'); 	// get body-parser
-var User       = require('../models/user');
+var bodyParser  = require('body-parser'); 	// get body-parser
+var User        = require('../models/user');
 var Booth       = require('../models/booth');
-var Reservation= require('../models/reservation');
-var jwt        = require('jsonwebtoken');
-var config     = require('../../config/config.js');
+var Reservation = require('../models/reservation');
+var jwt         = require('jsonwebtoken');
+var config      = require('../../config/config.js');
 
 // super secret for creating tokens
 var superSecret = config.secret;
@@ -61,6 +61,20 @@ module.exports = function(app, express) {
 
 	  });
 	});
+
+
+	// only admin can access /users page
+	apiRouter.route('/users')
+		// get all the users (accessed at GET http://localhost:8080/api/users)
+		.get(function(req, res) {
+
+			User.find({}, function(err, users) {
+				if (err) res.send(err);
+
+				// return the users
+				res.json(users);
+			});
+		});
 
 
 	apiRouter.route('/users')
@@ -401,31 +415,31 @@ module.exports = function(app, express) {
 
 
 
-	// middleware to prevent non-admin from accessing admin-only pages
-	apiRouter.use(function(req, res, next) {
-	  console.log("Checking if user has admin privileges to access page");
+	// // middleware to prevent non-admin from accessing admin-only pages
+	// apiRouter.use(function(req, res, next) {
+	//   console.log("Checking if user has admin privileges to access page");
 
-	  if (req.decoded.isAdmin) {
-	        console.log("Success");        
-	        next(); // make sure we go to the next routes and don't stop here
-	  } else {
+	//   if (req.decoded.isAdmin) {
+	//         console.log("Success");        
+	//         next(); // make sure we go to the next routes and don't stop here
+	//   } else {
 
-	  	console.log("permission denied. User not admin.");
-	  }
-	});
+	//   	console.log("permission denied. User not admin.");
+	//   }
+	// });
 
-	// only admin can access /users page
-	apiRouter.route('/users')
-		// get all the users (accessed at GET http://localhost:8080/api/users)
-		.get(function(req, res) {
+	// // only admin can access /users page
+	// apiRouter.route('/users')
+	// 	// get all the users (accessed at GET http://localhost:8080/api/users)
+	// 	.get(function(req, res) {
 
-			User.find({}, function(err, users) {
-				if (err) res.send(err);
+	// 		User.find({}, function(err, users) {
+	// 			if (err) res.send(err);
 
-				// return the users
-				res.json(users);
-			});
-		});
+	// 			// return the users
+	// 			res.json(users);
+	// 		});
+	// 	});
 
 
 	return apiRouter;

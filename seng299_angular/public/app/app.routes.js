@@ -22,6 +22,12 @@ angular.module('app.routes', ['ngRoute'])
     	controllerAs: 'login'
 	})
 
+	.when('/login/forgot', {
+		templateUrl	 : 'app/views/pages/forgot.html',
+		controller 	 : 'mainController',
+		controllerAs : 'login' 
+	})
+
 	.when("/users", {
 		templateUrl: 'app/views/pages/users/all.html',
 		controller: 'userController',

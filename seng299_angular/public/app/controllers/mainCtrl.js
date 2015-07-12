@@ -1,6 +1,6 @@
 angular.module('mainCtrl', ['ui.bootstrap'])
 
-.controller('mainController', function($rootScope, $location, Auth) {
+.controller('mainController', function($rootScope, $location, Auth, User) {
 
 	var vm = this;
 	
@@ -49,5 +49,21 @@ angular.module('mainCtrl', ['ui.bootstrap'])
 		
 		$location.path('/login');
 	};
+
+
+	// retrieve the security question of a suer 
+	vm.getSecurityQuestion = function() {
+		vm.the_username = vm.forgotData.username;
+
+
+		vm.users = User.all();
+		for(user in vm.users) {
+			if (user.username == vm.the_username) {
+				console.log('user exists');
+			} else {
+				console.log('user does not exist');
+			}
+		}
+	}
 
 });
