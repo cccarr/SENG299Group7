@@ -58,10 +58,9 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 				vm.processing = false;
 				vm.userData = {};
 				vm.message = data.message;
-			  	if(vm.loggedIn)			
+			  	if(vm.loggedIn)	{		
 					$location.path('/users');
-				else
-					$location.path('/login');
+				}
 					
 			});
 	}
