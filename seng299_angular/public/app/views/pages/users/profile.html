@@ -1,6 +1,8 @@
 
 <div class="jumbotron">
 
+
+<!-- ******************* USER INFO ******************* -->
 <div class="page-header">
 	
 	<h1>{{ user.userData.username }} </h1> 
@@ -32,7 +34,7 @@
 
 </div>
 
-
+<!-- ******************* RESERVATIONS ******************* -->
 <h3>Reservations</h3>
 
 	<table class="table table-bordered table-striped" ng-controller="reservationController as res">
@@ -62,5 +64,56 @@
 		</tr>
 	</tbody>
 </table>
+
+
+<hr>
+
+<!-- ******************* DELETE ACCOUNT ******************* -->
+<div ng-if="main.user.id == user.userData._id">
+
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#deleteModal">Delete my account</button>
+
+
+<!--  MODAL BOX -->
+	<div id="deleteModal" class="modal fade" role="dialog">
+  		<div class="modal-dialog">
+		    <div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal">&times;</button>
+       				<h4 class="modal-title">Are you sure you want to delete your profile?</h4>
+      			</div>
+      			
+      			<div class="modal-body">
+        			<p>This cannot be reversed. Your account and all information will be deleted and you will be redirected to the Farmer's Market Homepage.</p>
+      			</div>
+
+				<div class="modal-footer">
+					<button ng-click="user.deleteUser(user.userData._id)" class="btn btn-primary">I understand, delete my account</a>
+        			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    			</div>
+			</div>
+ 		</div>
+	</div>
+<!--  END MODAL -->
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div>

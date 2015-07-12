@@ -1,4 +1,4 @@
-angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPagination'])
+angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPagination', 'authService'])
 
 .controller('userController', function($location, User) {
 
@@ -110,7 +110,7 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 })
 
 
-.controller('userProfileController', function(User,$routeParams) {
+.controller('userProfileController', function(User,$routeParams, Auth, $location) {
 
 	var vm = this;
 
@@ -128,6 +128,14 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 				vm.banned=false;
 	});
 
+
+	vm.deleteUser = function(id) {
+		User.delete(id)
+			.success(function(data) {
+				Auth.logout();
+				$location.path('/');	
+			});
+	};	
 		
 })
 
