@@ -1,4 +1,4 @@
-angular.module('resCtrl', ['reservationService','ui.bootstrap'])
+angular.module('resCtrl', ['reservationService','ui.bootstrap', 'angularUtils.directives.dirPagination'])
 .controller('reservationController', function(Reservation,User,$scope) {
 
 		var vm = this;

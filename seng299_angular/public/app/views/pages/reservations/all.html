@@ -13,6 +13,9 @@
 
 </div>
 
+<center><dir-pagination-controls></dir-pagination-controls></center>
+
+
 <table class="table table-bordered table-striped" ng-init="reservation.getUser(main.user.id)">
 	<thead>
 		<tr>
@@ -25,7 +28,8 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="booking in reservation.reservations">
+<!-- 		<tr ng-repeat="booking in reservation.reservations"> -->
+		<tr dir-paginate="booking in reservation.reservations | itemsPerPage: 10">
 			<td>{{ booking._id }}</td>
 			<td>{{ reservation.getBoothName(booking.booth_id) }}</td>
 			<td>{{ reservation.getUserName(booking.user_id) }}</td>
@@ -40,6 +44,8 @@
 		</tr>
 	</tbody>
 </table>
+
+<center><dir-pagination-controls></dir-pagination-controls></center>
 
 
 </div>
