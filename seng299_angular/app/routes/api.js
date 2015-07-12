@@ -269,7 +269,8 @@ module.exports = function(app, express) {
 				// set the new reservation information if it exists in the request
 				if(req.body.booth_id) reservation.booth_id = req.body.booth_id; 
 				if(req.body.user_id) reservation.user_id = req.body.user_id;
-				if(req.body.dt_start) reservation.dt_start = req.body.dt_start;  
+				var date = new Date(req.body.dt_start);  
+				reservation.dt_start = new Date(date.getTime()-25200000);  
 				if(req.body.dt_booked) reservation.dt_booked = req.body.dt_booked;
 				if(req.body.dt_cancelled) reservation.dt_cancelled = req.body.dt_cancelled;
 
