@@ -1,0 +1,32 @@
+<div class="row col-md-6 col-md-offset-3">
+
+
+	<div class="jumbotron">
+		<h1>Forgot your password?</h1>
+
+		<form ng-submit="login.getSecurityQuestion()">
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" class="form-control" ng-model="login.forgotData.username">
+			</div>
+
+			<button type="submit" class="btn btn-block btn-primary">Retrieve security question</button>
+		</form>
+
+		<p>Security Question: {{ login.the_user }}</p>
+
+
+
+		<!-- DISPLAY ONLY IF QUESTION RETRIEVED -->
+		<form ng-submit="login.compareAnswer()">
+
+			<div class="form-group">
+				<label>Answer</label>
+				<input type="text" class="form-control" ng-model="login.forgotData.answer">
+			</div>
+
+			<button type="submit" class="btn btn-block btn-primary">Reset password</button>
+		</form>		
+	</div>
+
+</div>
