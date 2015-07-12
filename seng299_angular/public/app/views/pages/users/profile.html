@@ -52,11 +52,11 @@
 		<tr ng-repeat="booking in res.reservations" ng-if="booking.user_id == main.user.id">
 
 				<td>{{ res.getBoothName(booking.booth_id) }}</td>
-				<td>{{ booking.dt_start }}</td>
+				<td>{{ booking.dt_start | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}</td>
+
 				<td>{{ booking.description }}</td>
 			
 				<td class="col-sm-1">
-
 
 					<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#deleteResModal">Delete</button>
 
@@ -91,6 +91,31 @@
 		</tr>
 	</tbody>
 </table>
+<div ng-if = "user.userData._id == main.user.id">
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Delete</button>
+
+<!---Modal--->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Are you sure you want to delete your profile?</h4>
+      </div>
+      <div class="modal-body">
+        <p>This cannot be reversed. Your account and all information will be deleted and you will be redirected to the Farmer's Market Homepage.</p>
+      </div>
+<div class="modal-footer" ng-controller = "userProfileController as user">
+	<button ng-click="user.deleteUser(user.userData._id)" class="btn btn-primary">I understand, delete my account</a>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</div>
+  </div>
+</div>
+</div>
 
 
 <hr>

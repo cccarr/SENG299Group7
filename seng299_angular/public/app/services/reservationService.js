@@ -21,7 +21,8 @@ angular.module('reservationService', [])
 	reservationFactory.getForDay = function(dt_start) {
 		// since this call requires a user ID we'll add the id to
 		// the end of the URL
-		return $http.get('/api/reservationsForDay/' + dt_start);
+		dt_start_date = new Date(dt_start.getTime()-25200000);
+		return $http.get('/api/reservationsForDay/' + dt_start_date);
 	};
 	// get all reservations
 	reservationFactory.all = function() {

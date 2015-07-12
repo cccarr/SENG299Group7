@@ -273,7 +273,8 @@ module.exports = function(app, express) {
 			var reservation = new Reservation();	
 			reservation.booth_id = req.body.booth_id; 
 			reservation.user_id = req.body.user_id;
-			reservation.dt_start = req.body.dt_start;  
+			var date = new Date(req.body.dt_start);  
+			reservation.dt_start = new Date(date.getTime()-25200000);  
 			reservation.dt_booked = req.body.dt_booked;
 			reservation.dt_cancelled = req.body.dt_cancelled;
 
@@ -324,7 +325,8 @@ module.exports = function(app, express) {
 				// set the new reservation information if it exists in the request
 				if(req.body.booth_id) reservation.booth_id = req.body.booth_id; 
 				if(req.body.user_id) reservation.user_id = req.body.user_id;
-				if(req.body.dt_start) reservation.dt_start = req.body.dt_start;  
+				var date = new Date(req.body.dt_start);  
+				reservation.dt_start = new Date(date.getTime()-25200000);  
 				if(req.body.dt_booked) reservation.dt_booked = req.body.dt_booked;
 				if(req.body.dt_cancelled) reservation.dt_cancelled = req.body.dt_cancelled;
 
@@ -363,7 +365,8 @@ module.exports = function(app, express) {
 	
 	apiRouter.route('/reservationsForDay/:dt_start')
 		.get(function(req, res) {
-			Reservation.find({$where : 'return this.dt_start.getMonth() == '+dt_start.getMonth()+' AND this.dt_start.getYear() == '+dt_start.getYear()+' AND this.dt_start.getDay() == '+dt_start.getDay()}, function(err, reservations) {
+			date= new Date(req.params.dt_start);
+			Reservation.find({'dt_start' : date}, function(err, reservations) {
 				if (err) res.send(err);
 
 				// return that reservation
@@ -454,35 +457,6 @@ module.exports = function(app, express) {
 	apiRouter.get('/me', function(req, res) {
 		res.send(req.decoded);
 	});
-
-
-
-	// // middleware to prevent non-admin from accessing admin-only pages
-	// apiRouter.use(function(req, res, next) {
-	//   console.log("Checking if user has admin privileges to access page");
-
-	//   if (req.decoded.isAdmin) {
-	//         console.log("Success");        
-	//         next(); // make sure we go to the next routes and don't stop here
-	//   } else {
-
-	//   	console.log("permission denied. User not admin.");
-	//   }
-	// });
-
-	// // only admin can access /users page
-	// apiRouter.route('/users')
-	// 	// get all the users (accessed at GET http://localhost:8080/api/users)
-	// 	.get(function(req, res) {
-
-	// 		User.find({}, function(err, users) {
-	// 			if (err) res.send(err);
-
-	// 			// return the users
-	// 			res.json(users);
-	// 		});
-	// 	});
-
 
 	return apiRouter;
 };

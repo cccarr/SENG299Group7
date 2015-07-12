@@ -15,6 +15,8 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 
 			// bind the users that come back to vm.users
 			vm.users = data;		
+
+
 		});
 
 	vm.deleteUser = function(id) {
@@ -37,7 +39,7 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 
 })
 
-.controller('userCreateController', function(User, $location) {
+.controller('userCreateController', function(User,Auth, $location) {
 	
 	var vm = this;
 
@@ -45,6 +47,7 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 	// differentiates between create or edit pages
 	vm.type = 'create';
 
+	vm.loggedIn = Auth.isLoggedIn();
 	// function to create a user
 	vm.saveUser = function() {
 		vm.processing = true;
@@ -55,8 +58,11 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 				vm.processing = false;
 				vm.userData = {};
 				vm.message = data.message;
-
-				$location.path('/users');
+			  	if(vm.loggedIn)			
+					$location.path('/users');
+				else
+					$location.path('/login');
+					
 			});
 	}
 			
@@ -110,7 +116,7 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 })
 
 
-.controller('userProfileController', function(User,$routeParams, Auth, $location) {
+.controller('userProfileController', function(User,$routeParams, $location, Auth, $scope) {
 
 	var vm = this;
 
@@ -135,7 +141,5 @@ angular.module('userCtrl', ['userService', 'angularUtils.directives.dirPaginatio
 				Auth.logout();
 				$location.path('/');	
 			});
-	};	
-		
-})
-
+	};			
+});

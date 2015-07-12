@@ -11,38 +11,47 @@
 	</div>-->
 	</div>
 
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Booth</label>
-		<div class="col-sm-6">
-			<!--Drop down menu of booths-->
-			<select class="form-control" ng-options="booth.booth_title for booth in reservation.booths" ng-model="reservation.reservationData.booth_id"> 
-			</select>
-			
-
-		</div>
-	</div>
 
 
 
 	</div>
-	<div class="form-group">
+	<div class="form-group" >
 		<div class="col-sm-offset-2 col-sm-8">
 
 		    <div class="form-horizontal">
-			<datepicker ng-model="reservation.reservationData.dt_start" date-disabled="disabled(date,mode)"min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)" ng-click="reservation.getReservationByDay(reservation.reservationData.dt_start)"></datepicker>
+			<datepicker ng-model="dt" date-disabled="disabled(date,mode)"min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+		     <span class="dropdown" dropdown on-toggle="toggled(open)">
+			 <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+				Select a Time <span class="caret"></span>
+			</button>
+		      <ul class="dropdown-menu">
+
+			<li ng-if="dt.getDay() != '0' "ng-repeat="choice in reservation.time">
+			  <a ng-click="reservation.setTime(choice)">{{choice}}</a>
+			</li>
+			<li ng-if="dt.getDay() == '0' "ng-repeat="choice in reservation.timeSun">
+			  <a ng-click="reservation.setTime(choice)">{{choice}}</a>
+
+			</li>
+		      </ul>
+		       {{dt.getHours()}}:00 - {{dt.getHours()+4}}:00
+		    </span>
 		    </div>
 		</div>
 	</div>
-     <span class="dropdown" dropdown on-toggle="toggled(open)">
-      <a href class="dropdown-toggle" dropdown-toggle>
-        Pick a Time
-      </a>
-      <ul class="dropdown-menu">
-        <li ng-repeat="choice in reservation.time">
-          <a ng-click="reservation.setTime(choice)">{{choice}}</a>
-        </li>
-      </ul>
-    </span>	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Booth</label>
+		<div class="btn-group">
+			<li ng-repeat="booth in reservation.booths">
+			<label class="btn btn-primary" ng-model="$parent.booth_id" btn-radio="booth">
+			{{ booth.booth_title }}
+			</label>
+			<!--Drop down menu of booths-->
+				
+			</li>
+
+		</div>
+	</div>
 
 	<div class="form-group">
 	<div class="col-sm-offset-2 col-sm-6">
