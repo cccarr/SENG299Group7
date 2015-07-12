@@ -38,13 +38,15 @@
 
 		</li>
 	      </ul>
+		<strong>
 	       {{dt.getHours()}}:00 - {{dt.getHours()+4}}:00
+</strong>
 	    </span>
 	</center>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-8">
-		<label class=" control-label">Booth</label>
+		<label class=" control-label">Selected Booth : {{booth_id.booth_title}}</label>
 		<div class="btn-group">
 			<ul style="display: inline"ng-repeat="booth in reservation.booths">
 			<label class="btn btn-primary" ng-model="$parent.booth_id" btn-radio="booth" style="width:200px; margin-top:20px" ng-class="booth.booth_title">
