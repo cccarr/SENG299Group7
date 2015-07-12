@@ -91,3 +91,28 @@ div#ui-datepicker-div.ui-datepicker{color: #c0c0c0;} div#ui-datepicker-div.ui-da
 #user-info-table td {
 	padding: 10px;
 }
+.Merchandise{
+background-image: -webkit-radial-gradient(circle, #428bca 80%, #3276b1 81%);
+background-color:maroon!important;
+}
+.Merchandise:hover{
+background-image: -webkit-radial-gradient(circle, #428bca 80%, maroon 81%);
+background-color:maroon!important;
+border-color:maroon!important;
+}
+.Lunch{
+background-image: -webkit-radial-gradient(circle, indigo 80%, indigo 81%);
+background-color:maroon!important;
+}
+.Lunch:hover{
+background-image: -webkit-radial-gradient(circle, indigo 80%, maroon 81%);
+background-color:maroon!important;
+}
+.Produce{
+background-image: -webkit-radial-gradient(circle, orange 80%, #C35817 81%);
+background-color:maroon!important;
+}
+.Produce:hover{
+background-image: -webkit-radial-gradient(circle, orange 80%, maroon 81%);
+background-color:maroon!important;
+}
