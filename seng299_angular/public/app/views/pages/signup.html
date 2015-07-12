@@ -5,19 +5,20 @@
 </div>
 
 <form class="form-horizontal" ng-submit="user.saveUser()">
+	required * 
 	
 	<div class="form-group" ng-if="user.type== 'edit'">
 			<input type="hidden" class="form-control" ng-model="user.userData.user_id" >
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label">Username</label>
+		<label class="col-sm-2 control-label">Username*</label>
 		<div class="col-sm-6">
 			<input type="text" class="form-control" ng-model="user.userData.username">
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-2 control-label">Password</label>
+		<label class="col-sm-2 control-label">Password*</label>
 		<div class="col-sm-6">
 			<input type="password" class="form-control" ng-model="user.userData.password">
 		</div>
@@ -36,10 +37,18 @@
 			<input type="text" class="form-control" ng-model="user.userData.email"> <!-- change to email form control -->
 		</div>
 	</div>
-
-
-
-	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Security Question</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="user.userData.security_question"> <!-- change to email form control -->
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Security Answer</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" ng-model="user.userData.security_answer"> <!-- change to email form control -->
+		</div>
+	</div>	
 	<div class="form-group">
 	<div class="col-sm-offset-2 col-sm-6">
 		<button type="submit" class="btn btn-success btn-lg btn-block" >Sign Up</button>
