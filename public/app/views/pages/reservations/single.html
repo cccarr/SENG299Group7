@@ -23,7 +23,7 @@
 </center>
 		    </div>
 		</div>
-<div class="col-sm-12">
+<div class="col-sm-12"><br><br>
 	<center>
 	     <span class="dropdown" dropdown on-toggle="toggled(open)">
 		 <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
@@ -46,9 +46,13 @@
 	</center>
 	</div>
 	</div>
+
+	<hr>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-8">
-		<label class=" control-label">Selected Booth : {{booth_id.booth_title}}</label>
+		<h2>Available booths</h2>
+
+		<label class=" control-label">Selected Booth : {{booth_id.booth_title}}</label><br>
 		<div class="btn-group">
 			<ul style="display: inline"ng-repeat="booth in reservation.booths">
 			<label class="btn btn-primary" ng-model="$parent.booth_id" btn-radio="booth" style="width:200px; margin-top:20px" ng-class="booth.booth_title">

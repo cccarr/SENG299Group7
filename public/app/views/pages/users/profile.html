@@ -42,8 +42,8 @@
 		<tr>
 			<th>Booth</th>
 			<th>Date start</th>
-			<th>Description</th>
-			<th>Delete</th>
+			<!-- <th>Description</th> -->
+			<th class="col-sm-1">Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -54,7 +54,7 @@
 				<td>{{ res.getBoothName(booking.booth_id) }}</td>
 				<td>{{ booking.dt_start | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}</td>
 
-				<td>{{ booking.description }}</td>
+				<!-- <td>{{ booking.description }}</td> -->
 			
 				<td class="col-sm-1">
 
