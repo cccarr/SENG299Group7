@@ -1,5 +1,5 @@
 angular.module('resCtrl', ['reservationService','ui.bootstrap', 'angularUtils.directives.dirPagination'])
-.controller('reservationController', function(Reservation,User,$scope) {
+.controller('reservationController', function(Reservation,User,$scope,$window) {
 
 		var vm = this;
 
@@ -130,6 +130,7 @@ angular.module('resCtrl', ['reservationService','ui.bootstrap', 'angularUtils.di
 									.success(function(data) {
 											vm.processing = false;
 											vm.reservations = data;
+											 $window.location.reload();
 											});
 
 									});
